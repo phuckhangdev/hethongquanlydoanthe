@@ -16,7 +16,7 @@ class CreateKhenthuongsTable extends Migration
         Schema::create('khenthuongs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tenkhenthuong', 100)->unique();
-            $table->string('ghichu')->nullable();
+            $table->mediumText('ghichu')->nullable();
             $table->timestamps();
         });
     }

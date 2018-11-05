@@ -17,7 +17,7 @@ class CreateXeploaidvsTable extends Migration
             $table->increments('id');
             $table->string('namhoc',11);
             $table->integer('hocky');
-            $table->string('nhanxet',100)->nullable();
+            $table->mediumText('nhanxet',100)->nullable();
             $table->string('xeploai',45);
             $table->boolean('uutu')->default(false);
 

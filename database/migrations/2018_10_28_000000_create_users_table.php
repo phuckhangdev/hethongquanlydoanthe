@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('tendoanvien', 45); // Tô Phúc Khang
             $table->date('ngaysinh')->nullable(); // 09/12/1997
             $table->boolean('gioitinh')->default(true); // true la nam, false la nu
-            $table->string('quequan', 100)->nullable(); // số 56, khóm 1, phường 2, Tp. Bạc Liêu
+            $table->mediumText('quequan')->nullable(); // số 56, khóm 1, phường 2, Tp. Bạc Liêu
             $table->string('dantoc', 20);
             $table->date('ngayvaodoan')->nullable(); // 19/05/2015
             $table->string('noivaodoan', 100)->nullable(); // Trường Đại Học Bạc Liêu

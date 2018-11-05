@@ -8,9 +8,34 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import moment from 'moment';
+
+// Using sweetalert
+import swal from 'sweetalert2';
+window.swal = swal;
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+window.toast = toast;
+
+import { Form, HasError, AlertError } from 'vform';
+
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+import VueProgressBar from 'vue-progressbar';
+
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '2px'
+})
 
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
 
 let routes = [
@@ -23,6 +48,17 @@ const router = new VueRouter({
     routes,
     linkActiveClass: 'active'
   })
+
+window.Fire = new Vue();  
+
+// Filter and Show custom text to client
+Vue.filter('upText', function(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1)
+})
+// Filter and Show custome datetime to client
+Vue.filter('showDate', function(created) {
+  return moment(created).format('DD/MM/YYYY, h:mm:ss a')
+})
 
 /**
  * The following block of code may be used to automatically register your

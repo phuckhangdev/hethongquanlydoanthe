@@ -18,8 +18,8 @@ class CreateHoatdongsTable extends Migration
             $table->string('tenhoatdong', 100)->unique();
             $table->string('namhoc',11);
             $table->integer('hocky');
-            $table->string('diadiem');
-            $table->string('ghichu')->nullable();
+            $table->mediumText('diadiem');
+            $table->mediumText('ghichu')->nullable();
 
             $table->integer('captochuc_id')->unsigned();
 

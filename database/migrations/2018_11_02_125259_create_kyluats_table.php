@@ -16,7 +16,7 @@ class CreateKyluatsTable extends Migration
         Schema::create('kyluats', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tenkyluat', 100)->unique();
-            $table->string('ghichu')->nullable();
+            $table->mediumText('ghichu')->nullable();
             $table->timestamps();
         });
     }

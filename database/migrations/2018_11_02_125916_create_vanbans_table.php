@@ -16,7 +16,7 @@ class CreateVanbansTable extends Migration
         Schema::create('vanbans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tenvanban',100);
-            $table->string('noidung');
+            $table->mediumText('noidung');
             $table->string('loaivanban',45);
             $table->string('captochuc',45);
             $table->timestamps();
