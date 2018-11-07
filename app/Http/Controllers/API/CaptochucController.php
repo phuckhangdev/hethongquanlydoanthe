@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Doankhoato;
+use App\Captochuc;
 
-class DoankhoatoController extends Controller
+class CaptochucController extends Controller
 {
 
     /**
@@ -25,8 +25,7 @@ class DoankhoatoController extends Controller
      */
     public function index()
     {
-        return Doankhoato::latest()->with('chidoans')->paginate();
-        // return Doankhoato::all();
+        return Captochuc::latest()->paginate();
     }
 
     /**
@@ -38,11 +37,11 @@ class DoankhoatoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'tendoankhoato' => ['required', 'string', 'max:191', 'unique:doankhoatos'],
+            'tencaptochuc' => ['required', 'string', 'max:191', 'unique:captochucs'],
         ]);
 
-        return Doankhoato::create([
-            'tendoankhoato' => $request['tendoankhoato'],
+        return captochuc::create([
+            'tencaptochuc' => $request['tencaptochuc'],
         ]);
     }
 
@@ -66,13 +65,13 @@ class DoankhoatoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $doankhoato = Doankhoato::findOrFail($id);
+        $captochuc = captochuc::findOrFail($id);
 
         $this->validate($request,[
-            'tendoankhoato' => ['required', 'string', 'max:191', 'unique:doankhoatos,tendoankhoato,'.$doankhoato->id],
+            'tencaptochuc' => ['required', 'string', 'max:191', 'unique:captochucs,tencaptochuc,'.$captochuc->id],
         ]);
 
-        $doankhoato->update($request->all());
+        $captochuc->update($request->all());
     }
 
     /**
@@ -83,8 +82,8 @@ class DoankhoatoController extends Controller
      */
     public function destroy($id)
     {
-        $doankhoato = Doankhoato::findOrFail($id);
+        $captochuc = captochuc::findOrFail($id);
 
-        $doankhoato->delete();
+        $captochuc->delete();
     }
 }

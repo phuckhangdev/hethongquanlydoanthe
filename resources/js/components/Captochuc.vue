@@ -4,18 +4,8 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Chi đoàn</h3>
-                <div class="row">
-                  <div class="col-sm-12 col-md-4"> 
-                    <select class="form-control" v-model="filterByDoankhoato" >
-                      <option value="" selected disabled hidden>Chọn Đoàn khoa & Tổ</option>
-                      <option v-for="doankhoato in doankhoatos" :key="doankhoato.id" :value="doankhoato.id">{{doankhoato.tendoankhoato}}</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-sm-12 col-md-6">
-                  </div>
-                </div>
+                <h3 class="card-title">Cấp tổ chức</h3>
+
                 <div class="card-tools">
                   <button class="btn btn-primary" @click="newModal">
                     <i class="fas fa-plus-circle"></i> Thêm mới
@@ -23,41 +13,31 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
                     <th>ID</th>
-                    <th>Tên chi đoàn</th>
-                    <th>Tên cụ thể</th>
-                    <!-- <th>Đoàn khoa & Tổ</th> -->
+                    <th>Tên cấp tổ chức</th>
                     <th>Ngày tạo</th>
                     <th>Sửa đổi</th>
                   </tr>
-                  
-                  <tr v-for="chidoan in filteredChidoans" :key="chidoan.id">
-                    <td>{{chidoan.id}}</td>
-                    <td>{{chidoan.tenchidoan}}</td>
-                    <td>{{chidoan.tencuthe}}</td>
-                    <!-- <td>
-                      <span v-for="doankhoato in chidoan.doankhoatos" :key="doankhoato.id">
-                            {{doankhoato.tendoankhoato}}
-                      </span>
-                      {{chidoan.doankhoato.tendoankhoato}}
-                      {{chidoan.doankhoato_id}}
-                    </td> -->
-                    <td>{{chidoan.created_at | showDate}}</td>
+                  <!-- <tr v-for="(captochuc, index) in captochucs" :key="index"> -->
+                  <tr v-for="captochuc in captochucs" :key="captochuc.id">
+                    <td>{{captochuc.id}}</td>
+                    <!-- <td>{{index+1}}</td> -->
+                    <td>{{captochuc.tencaptochuc}}</td>
+                    <td>{{captochuc.created_at | showDate}}</td>
                     <td>
-                      <a href="#" @click="editModal(chidoan)">
+                      <a href="#" @click="editModal(captochuc)">
                         <i class="fa fa-edit green"></i>
                       </a>
                       |
-                      <a href="#" @click="deletechidoan(chidoan.id)">
+                      <a href="#" @click="deletecaptochuc(captochuc.id)">
                         <i class="fa fa-trash red"></i>
                       </a>
                     </td>
                   </tr>
-                
+
                 </tbody></table>
               </div>
               <!-- /.card-body -->
@@ -78,27 +58,13 @@
                 </button>
               </div>
               <!-- Form -->
-              <form @submit.prevent="editmode ? updatechidoan() : createchidoan()">
+              <form @submit.prevent="editmode ? updatecaptochuc() : createcaptochuc()">
               <div class="modal-body">
                 <div class="form-group">
-                  <input v-model="form.tenchidoan" type="text" name="tenchidoan"
-                    placeholder="Tên Chi đoàn"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('tenchidoan') }">
-                  <has-error :form="form" field="tenchidoan"></has-error>
-                </div>
-                <div class="form-group">
-                  <input v-model="form.tencuthe" type="text" name="tencuthe"
-                    placeholder="Tên Cụ thể"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('tencuthe') }">
-                  <has-error :form="form" field="tencuthe"></has-error>
-                </div>
-                <div class="form-group" >
-                  <select name="doankhoato_id" v-model="form.doankhoato_id" id="doankhoato_id" class="form-control" :class="{ 'is-invalid': form.errors.has('doankhoato_id') }">
-                            <option v-for="doankhoato in doankhoatos" :key="doankhoato.id" :value="doankhoato.id">{{doankhoato.tendoankhoato}}</option>
-                            <!-- <option value="admin">Admin</option> -->
-                            
-                  </select>
-                  <has-error :form="form" field="doankhoato_id"></has-error>
+                  <input v-model="form.tencaptochuc" type="text" name="tencaptochuc"
+                    placeholder="Tên cấp tổ chức"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('tencaptochuc') }">
+                  <has-error :form="form" field="tencaptochuc"></has-error>
                 </div>
               </div>
               <div class="modal-footer">
@@ -119,38 +85,30 @@
         data() {
           return {
             editmode: false,
-            // chidoans: {},
-            chidoans: [],
-            doankhoatos: [],
-            filterByDoankhoato: '',
+            captochucs: {},
             form: new Form({
               id: '',
-              tenchidoan: '',
-              tencuthe: '',
-              doankhoato_id: '',
+              tencaptochuc: '',
             })
           }
         },
         methods: {
-          
-          editModal(chidoan){
+          editModal(captochuc){
             this.editmode = true;
             this.form.reset();
             $('#addNewModal').modal('show');
-            this.form.fill(chidoan);
+            this.form.fill(captochuc);
           },
           newModal(){
             this.editmode = false;
             this.form.reset();
             $('#addNewModal').modal('show');
-            this.form.doankhoato_id = this.filterByDoankhoato;
-            this.form.fill(chidoan);
           },
-          updatechidoan(){
+          updatecaptochuc(){
             this.$Progress.start();
-            this.form.put('api/chidoan/' + this.form.id)
+            this.form.put('api/captochuc/' + this.form.id)
             .then(() => {
-              Fire.$emit('Reloadchidoans');
+              Fire.$emit('Reloadcaptochucs');
               $('#addNewModal').modal('hide');
               toast({
                 type: 'success',
@@ -166,7 +124,7 @@
               this.$Progress.fail();
             });
           },
-          deletechidoan(id){
+          deletecaptochuc(id){
             swal({
               title: 'Bạn có muốn xóa?',
               text: "Bạn sẽ không thể hoàn nguyên điều này!",
@@ -177,10 +135,10 @@
               confirmButtonText: 'Vâng, tôi chắc!'
             }).then((result) => {
               if (result.value) {
-                this.form.delete('api/chidoan/' + id)
+                this.form.delete('api/captochuc/' + id)
                 .then(() => {
                     swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
-                    Fire.$emit('Reloadchidoans');
+                    Fire.$emit('Reloadcaptochucs');
                 })
                 .catch(() => {
                     swal('Failed!', 'There was something wrongs.', 'warning');
@@ -188,11 +146,11 @@
               }
             })
           },
-          loadchidoans(){
+          loadcaptochucs(){
             this.$Progress.start();
-            axios.get("api/chidoan")
+            axios.get("api/captochuc")
             .then(({ data }) => {
-                (this.chidoans = data.data)
+                (this.captochucs = data.data)
                 this.$Progress.finish();
             })
             .catch((error) => {
@@ -202,17 +160,13 @@
               })
               this.$Progress.fail();
             });
-
-            axios.get('api/doankhoato')
-            .then(({ data }) => {
-                (this.doankhoatos = data.data)
-            })
+            
           },
-          createchidoan() {
+          createcaptochuc() {
             this.$Progress.start();
-            this.form.post('api/chidoan')
+            this.form.post('api/captochuc')
             .then(() => {
-              Fire.$emit('Reloadchidoans');
+              Fire.$emit('Reloadcaptochucs');
               $('#addNewModal').modal('hide');
               toast({
                 type: 'success',
@@ -230,18 +184,10 @@
             
           }
         },
-        computed:{
-            filteredChidoans: function(){
-              return this.chidoans.filter((chidoans)=>{
-                return chidoans.doankhoato_id===this.filterByDoankhoato;
-                // return chidoans.doankhoato_id;
-              })
-            }
-        },
         created() {
-            this.loadchidoans();
-            Fire.$on('Reloadchidoans', () => {
-              this.loadchidoans();
+            this.loadcaptochucs();
+            Fire.$on('Reloadcaptochucs', () => {
+              this.loadcaptochucs();
             })
         }
     }

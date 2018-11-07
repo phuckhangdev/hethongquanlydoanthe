@@ -19,4 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'doankhoato' => 'API\DoankhoatoController',
+    'chidoan' => 'API\ChidoanController',
+    'captochuc' => 'API\CaptochucController',
 ]);

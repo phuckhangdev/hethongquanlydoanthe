@@ -197,10 +197,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               @role('admin')
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/captochuc" class="nav-link">
                   <i class="fas fa-building nav-icon"></i>
                   <p>Cấp tổ chức</p>
-                </a>
+                </router-link>
               </li>
               @endrole
           @perm('ds-tham-gia-hoat-dong')

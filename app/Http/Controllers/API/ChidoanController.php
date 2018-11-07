@@ -4,9 +4,10 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Chidoan;
 use App\Doankhoato;
 
-class DoankhoatoController extends Controller
+class ChidoanController extends Controller
 {
 
     /**
@@ -18,6 +19,12 @@ class DoankhoatoController extends Controller
     {
         $this->middleware('auth:api');
     }
+
+    public function getDoankhoato($id)
+    {
+        return Doankhoato::find($id)->doankhoato;
+        // return Doankhoato::all();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +32,8 @@ class DoankhoatoController extends Controller
      */
     public function index()
     {
-        return Doankhoato::latest()->with('chidoans')->paginate();
-        // return Doankhoato::all();
+        return Chidoan::latest()->paginate();
+        // return Chidoan::with('doankhoato')->get();
     }
 
     /**
@@ -38,11 +45,15 @@ class DoankhoatoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'tendoankhoato' => ['required', 'string', 'max:191', 'unique:doankhoatos'],
+            'tenchidoan' => ['required', 'string', 'max:191', 'unique:chidoans'],
+            'tencuthe' => ['string', 'max:191'],
+            'doankhoato_id' => ['required'],
         ]);
 
-        return Doankhoato::create([
-            'tendoankhoato' => $request['tendoankhoato'],
+        return Chidoan::create([
+            'tenchidoan' => $request['tenchidoan'],
+            'tencuthe' => $request['tencuthe'],
+            'doankhoato_id' => $request['doankhoato_id'],
         ]);
     }
 
@@ -66,13 +77,15 @@ class DoankhoatoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $doankhoato = Doankhoato::findOrFail($id);
+        $chidoan = Chidoan::findOrFail($id);
 
         $this->validate($request,[
-            'tendoankhoato' => ['required', 'string', 'max:191', 'unique:doankhoatos,tendoankhoato,'.$doankhoato->id],
+            'tenchidoan' => ['required', 'string', 'max:191', 'unique:chidoans,tenchidoan,'.$chidoan->id],
+            'tencuthe' => ['string', 'max:191'],
+            'doankhoato_id' => ['required'],
         ]);
 
-        $doankhoato->update($request->all());
+        $chidoan->update($request->all());
     }
 
     /**
@@ -83,8 +96,8 @@ class DoankhoatoController extends Controller
      */
     public function destroy($id)
     {
-        $doankhoato = Doankhoato::findOrFail($id);
+        $chidoan = Chidoan::findOrFail($id);
 
-        $doankhoato->delete();
+        $chidoan->delete();
     }
 }

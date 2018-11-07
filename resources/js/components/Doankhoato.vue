@@ -21,9 +21,10 @@
                     <th>Ngày tạo</th>
                     <th>Sửa đổi</th>
                   </tr>
-                  
-                  <tr v-for="(doankhoato, index) in doankhoatos" :key="index">
+                  <!-- <tr v-for="(doankhoato, index) in doankhoatos" :key="index"> -->
+                  <tr v-for="doankhoato in doankhoatos" :key="doankhoato.id">
                     <td>{{doankhoato.id}}</td>
+                    <!-- <td>{{index+1}}</td> -->
                     <td>{{doankhoato.tendoankhoato}}</td>
                     <td>{{doankhoato.created_at | showDate}}</td>
                     <td>

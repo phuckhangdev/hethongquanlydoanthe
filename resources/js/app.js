@@ -40,7 +40,8 @@ Vue.use(VueRouter)
 
 let routes = [
     { path: '/chidoan', component: require('./components/Chidoan.vue') },
-    { path: '/doankhoato', component: require('./components/Doankhoato.vue') }
+    { path: '/doankhoato', component: require('./components/Doankhoato.vue') },
+    { path: '/captochuc', component: require('./components/Captochuc.vue') }
   ]
 
 const router = new VueRouter({
