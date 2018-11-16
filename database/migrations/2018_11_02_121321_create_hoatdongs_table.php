@@ -18,6 +18,7 @@ class CreateHoatdongsTable extends Migration
             $table->string('tenhoatdong', 100)->unique();
             $table->string('namhoc',11);
             $table->integer('hocky');
+            $table->datetime('thoigian');
             $table->mediumText('diadiem');
             $table->mediumText('ghichu')->nullable();
 

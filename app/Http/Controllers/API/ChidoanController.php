@@ -20,11 +20,11 @@ class ChidoanController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function getDoankhoato($id)
-    {
-        return Doankhoato::find($id)->doankhoato;
-        // return Doankhoato::all();
-    }
+    // public function getDoankhoato($id)
+    // {
+    //     return Doankhoato::find($id)->doankhoato;
+    //     // return Doankhoato::all();
+    // }
     /**
      * Display a listing of the resource.
      *

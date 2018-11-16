@@ -190,10 +190,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
           @endperm
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/hoatdong" class="nav-link">
                   <i class="fas fa-bolt nav-icon"></i>
                   <p>Danh sách hoạt động</p>
-                </a>
+                </router-link>
               </li>
               @role('admin')
               <li class="nav-item">

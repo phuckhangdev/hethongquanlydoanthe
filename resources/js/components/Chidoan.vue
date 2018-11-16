@@ -144,7 +144,7 @@
             this.form.reset();
             $('#addNewModal').modal('show');
             this.form.doankhoato_id = this.filterByDoankhoato;
-            this.form.fill(chidoan);
+            // this.form.fill(chidoan);
           },
           updatechidoan(){
             this.$Progress.start();

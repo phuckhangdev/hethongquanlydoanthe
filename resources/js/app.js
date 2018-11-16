@@ -9,7 +9,31 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import moment from 'moment';
+window.moment = moment;
 
+import datePicker from 'vue-bootstrap-datetimepicker';
+Vue.use(datePicker);
+
+// Initialize as global component
+Vue.component('date-picker', datePicker);
+
+// Using font-awesome 5 icons
+$.extend(true, $.fn.datetimepicker.defaults, {
+  icons: {
+    time: 'fas fa-clock',
+    date: 'fas fa-calendar',
+    up: 'fas fa-arrow-up',
+    down: 'fas fa-arrow-down',
+    previous: 'fas fa-chevron-left',
+    next: 'fas fa-chevron-right',
+    today: 'fas fa-calendar-check',
+    clear: 'fas fa-trash-alt',
+    close: 'fas fa-times-circle'
+  }
+});
+
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
 // Using sweetalert
 import swal from 'sweetalert2';
 window.swal = swal;
@@ -41,7 +65,8 @@ Vue.use(VueRouter)
 let routes = [
     { path: '/chidoan', component: require('./components/Chidoan.vue') },
     { path: '/doankhoato', component: require('./components/Doankhoato.vue') },
-    { path: '/captochuc', component: require('./components/Captochuc.vue') }
+    { path: '/captochuc', component: require('./components/Captochuc.vue') },
+    { path: '/hoatdong', component: require('./components/Hoatdong.vue') },
   ]
 
 const router = new VueRouter({
@@ -58,7 +83,8 @@ Vue.filter('upText', function(text) {
 })
 // Filter and Show custome datetime to client
 Vue.filter('showDate', function(created) {
-  return moment(created).format('DD/MM/YYYY, h:mm:ss a')
+  // return moment(created).format('DD/MM/YYYY, h:mm:ss a')
+  return moment(created).format('DD/MM/YYYY, HH:mm')
 })
 
 /**
@@ -100,5 +126,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    data: {
+      moment: moment
+    },
 });

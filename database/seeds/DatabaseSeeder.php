@@ -16,7 +16,9 @@ class DatabaseSeeder extends Seeder
             ChidoansTableSeeder::class,
             PermissionTableSeeder::class,
             RoleTableSeeder::class,
-            UsersTableSeeder::class
+            UsersTableSeeder::class,
+            CaptochucsTableSeeder::class,
+            HoatdongsTableSeeder::class,
         ]);
         // $this->call(DoankhoatosTableSeeder::class);
         // $this->call(ChidoansTableSeeder::class);

@@ -11,6 +11,7 @@
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import '~pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 .navbar-laravel {
   background-color: #fff;
@@ -20,3 +21,7 @@
 .brand-link {
   font-size: 1.15rem !important;
 }
+.select-editable { position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px; }
+.select-editable select { position:absolute; top:0px; left:0px; font-size:14px; border:none; width:120px; margin:0; }
+.select-editable input { position:absolute; top:0px; left:0px; width:100px; padding:1px; font-size:12px; border:none; }
+.select-editable select:focus, .select-editable input:focus { outline:none; }

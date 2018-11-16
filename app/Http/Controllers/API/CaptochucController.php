@@ -25,7 +25,8 @@ class CaptochucController extends Controller
      */
     public function index()
     {
-        return Captochuc::latest()->paginate();
+        return Captochuc::latest()->paginate(Captochuc::count());
+        // return Captochuc::all();
     }
 
     /**
