@@ -23,4 +23,5 @@ Route::apiResources([
     'captochuc' => 'API\CaptochucController',
     'hoatdong' => 'API\HoatdongController',
     'khenthuong' => 'API\KhenthuongController',
+    'kyluat' => 'API\KyluatController',
 ]);

@@ -127,10 +127,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/kyluat" class="nav-link">
                   <i class="fas fa-ban nav-icon"></i>
                   <p>Kỷ luật</p>
-                </a>
+                </router-link>
               </li>
           @perm('ds-khen-thuong-ky-luat')
             </ul>

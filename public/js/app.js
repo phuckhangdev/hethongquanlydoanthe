@@ -30776,7 +30776,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_progressbar___default.a, {
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]);
 
-var routes = [{ path: '/chidoan', component: __webpack_require__(175) }, { path: '/doankhoato', component: __webpack_require__(178) }, { path: '/captochuc', component: __webpack_require__(181) }, { path: '/hoatdong', component: __webpack_require__(184) }, { path: '/khenthuong', component: __webpack_require__(187) }];
+var routes = [{ path: '/chidoan', component: __webpack_require__(175) }, { path: '/doankhoato', component: __webpack_require__(178) }, { path: '/captochuc', component: __webpack_require__(181) }, { path: '/hoatdong', component: __webpack_require__(184) }, { path: '/khenthuong', component: __webpack_require__(187) }, { path: '/kyluat', component: __webpack_require__(226) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]({
   mode: 'history',
@@ -79591,6 +79591,618 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(227)
+/* template */
+var __vue_template__ = __webpack_require__(228)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/kyluat.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-41fd6216", Component.options)
+  } else {
+    hotAPI.reload("data-v-41fd6216", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 227 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      editmode: false,
+      kyluats: {},
+      form: new Form({
+        id: '',
+        tenkyluat: '',
+        ghichu: ''
+      })
+    };
+  },
+
+  methods: {
+    editModal: function editModal(kyluat) {
+      this.editmode = true;
+      this.form.reset();
+      $('#addNewModal').modal('show');
+      this.form.fill(kyluat);
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $('#addNewModal').modal('show');
+    },
+    updatekyluat: function updatekyluat() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put('api/kyluat/' + this.form.id).then(function () {
+        Fire.$emit('Reloadkyluats');
+        $('#addNewModal').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Sửa thành công!'
+        });
+        _this.$Progress.finish();
+      }).catch(function () {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this.$Progress.fail();
+      });
+    },
+    deletekyluat: function deletekyluat(id) {
+      var _this2 = this;
+
+      swal({
+        title: 'Bạn có muốn xóa?',
+        text: "Bạn sẽ không thể hoàn nguyên điều này!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng, tôi chắc!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.form.delete('api/kyluat/' + id).then(function () {
+            swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
+            Fire.$emit('Reloadkyluats');
+          }).catch(function () {
+            swal('Failed!', 'There was something wrongs.', 'warning');
+          });
+        }
+      });
+    },
+    loadkyluats: function loadkyluats() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      axios.get("api/kyluat").then(function (_ref) {
+        var data = _ref.data;
+
+        _this3.kyluats = data.data;
+        _this3.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this3.$Progress.fail();
+      });
+    },
+    createkyluat: function createkyluat() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.post('api/kyluat').then(function () {
+        Fire.$emit('Reloadkyluats');
+        $('#addNewModal').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Thêm thành công!'
+        });
+        _this4.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this4.$Progress.fail();
+      });
+    }
+  },
+  created: function created() {
+    var _this5 = this;
+
+    this.loadkyluats();
+    Fire.$on('Reloadkyluats', function () {
+      _this5.loadkyluats();
+    });
+  }
+});
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [_vm._v("Kỷ luật")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.newModal } },
+                [
+                  _c("i", { staticClass: "fas fa-plus-circle" }),
+                  _vm._v(" Thêm mới\n              ")
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _c(
+                "tbody",
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._l(_vm.kyluats, function(kyluat) {
+                    return _c("tr", { key: kyluat.id }, [
+                      _c("td", [_vm._v(_vm._s(kyluat.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(kyluat.tenkyluat))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(kyluat.ghichu))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm._f("showDate")(kyluat.created_at)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.editModal(kyluat)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-edit green" })]
+                        ),
+                        _vm._v("\n                  |\n                  "),
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.deletekyluat(kyluat.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash red" })]
+                        )
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNewModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title blue",
+                    attrs: { id: "addNewModalLabel" }
+                  },
+                  [_vm._v("Thêm mới")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title green",
+                    attrs: { id: "addNewModalLabel" }
+                  },
+                  [_vm._v("Sửa")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editmode ? _vm.updatekyluat() : _vm.createkyluat()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.tenkyluat,
+                              expression: "form.tenkyluat"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("tenkyluat")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "tenkyluat",
+                            placeholder: "Tên kỷ luật"
+                          },
+                          domProps: { value: _vm.form.tenkyluat },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "tenkyluat",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "tenkyluat" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.ghichu,
+                              expression: "form.ghichu"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("ghichu")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "ghichu",
+                            placeholder: "Ghi chú"
+                          },
+                          domProps: { value: _vm.form.ghichu },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "ghichu", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "ghichu" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Đóng")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Thêm")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Sửa")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Tên kỷ luật")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Ghi chú")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Ngày tạo")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sửa đổi")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-41fd6216", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

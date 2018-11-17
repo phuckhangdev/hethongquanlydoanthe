@@ -68,6 +68,7 @@ let routes = [
     { path: '/captochuc', component: require('./components/Captochuc.vue') },
     { path: '/hoatdong', component: require('./components/Hoatdong.vue') },
     { path: '/khenthuong', component: require('./components/Khenthuong.vue') },
+    { path: '/kyluat', component: require('./components/kyluat.vue') },
   ]
 
 const router = new VueRouter({
