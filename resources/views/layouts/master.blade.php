@@ -121,10 +121,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
           @endperm
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/khenthuong" class="nav-link">
                   <i class="fas fa-award nav-icon"></i>
                   <p>Khen thưởng</p>
-                </a>
+                </router-link>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
