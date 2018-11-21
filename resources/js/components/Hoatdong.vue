@@ -117,13 +117,13 @@
                 </div>
                 <div class="form-group">
                   <date-picker v-model="form.thoigian" :config="options" name="thoigian" placeholder="Thời gian"
-                    :class="{ 'is-invalid': form.errors.has('diadiem') }"></date-picker>
+                    :class="{ 'is-invalid': form.errors.has('thoigian') }"></date-picker>
                   <has-error :form="form" field="thoigian"></has-error>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.diadiem" type="text" name="diadiem"
+                  <textarea v-model="form.diadiem" type="text" name="diadiem"
                     placeholder="Địa điểm"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('diadiem') }">
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('diadiem') }"></textarea>
                   <has-error :form="form" field="diadiem"></has-error>
                 </div>
                 <div class="form-group" >
@@ -134,9 +134,9 @@
                   <has-error :form="form" field="captochuc_id"></has-error>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.ghichu" type="text" name="ghichu"
+                  <textarea v-model="form.ghichu" type="text" name="ghichu"
                     placeholder="Ghi chú"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('ghichu') }">
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('ghichu') }"></textarea>
                   <has-error :form="form" field="ghichu"></has-error>
                 </div>
               </div>
@@ -177,7 +177,7 @@
             }),
             options: {
               format: 'DD/MM/YYYY HH:mm',
-              useCurrent: false,
+              // useCurrent: false,
               // showClear: true,
               // showClose: true,
               locale: 'vi',
@@ -247,7 +247,7 @@
                     Fire.$emit('Reloadhoatdongs');
                 })
                 .catch(() => {
-                    swal('Failed!', 'There was something wrongs.', 'warning');
+                    swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
                 });
               }
             })

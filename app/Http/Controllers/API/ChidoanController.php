@@ -32,7 +32,7 @@ class ChidoanController extends Controller
      */
     public function index()
     {
-        return Chidoan::latest()->paginate();
+        return Chidoan::latest()->paginate(Chidoan::count());
         // return Chidoan::with('doankhoato')->get();
     }
 

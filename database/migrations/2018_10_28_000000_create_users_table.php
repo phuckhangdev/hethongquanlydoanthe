@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             // $table->string('email')->unique();
             // $table->string('password');
             $table->string('username', 15)->unique(); // Mã đoàn viên
-            $table->string('password'); // mat khau
+            $table->string('password')->default(bcrypt('doanvien')); // mat khau
 
             $table->string('tendoanvien', 45); // Tô Phúc Khang
             $table->date('ngaysinh')->nullable(); // 09/12/1997
@@ -28,9 +28,10 @@ class CreateUsersTable extends Migration
             $table->string('dantoc', 20);
             $table->date('ngayvaodoan')->nullable(); // 19/05/2015
             $table->string('noivaodoan', 100)->nullable(); // Trường Đại Học Bạc Liêu
-            $table->string('chucvu', 10); // Bí thư, Phó Bí thư, Đoàn viên
+            $table->string('chucvu', 10)->default('Đoàn viên'); // Bí thư, Phó Bí thư, Đoàn viên
             $table->boolean('dangvien')->default(false); //true là đảng viên
-            $table->string('hinhanh',100); //url ảnh
+            $table->string('sodienthoai')->nullable();
+            $table->string('hinhanh',100)->default('profile.png'); //url ảnh
 
             $table->integer('chidoan_id')->unsigned();
 

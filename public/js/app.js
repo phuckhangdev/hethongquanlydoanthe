@@ -15599,7 +15599,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(193)
+var listToStyles = __webpack_require__(199)
 
 /*
 type StyleObject = {
@@ -30690,7 +30690,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(141);
-module.exports = __webpack_require__(209);
+module.exports = __webpack_require__(215);
 
 
 /***/ }),
@@ -30776,7 +30776,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_progressbar___default.a, {
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]);
 
-var routes = [{ path: '/chidoan', component: __webpack_require__(175) }, { path: '/doankhoato', component: __webpack_require__(178) }, { path: '/captochuc', component: __webpack_require__(181) }, { path: '/hoatdong', component: __webpack_require__(184) }, { path: '/khenthuong', component: __webpack_require__(187) }, { path: '/kyluat', component: __webpack_require__(226) }];
+var routes = [{ path: '/chidoan', component: __webpack_require__(175) }, { path: '/doankhoato', component: __webpack_require__(178) }, { path: '/captochuc', component: __webpack_require__(181) }, { path: '/hoatdong', component: __webpack_require__(184) }, { path: '/khenthuong', component: __webpack_require__(187) }, { path: '/kyluat', component: __webpack_require__(190) }, { path: '/user', component: __webpack_require__(193) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]({
   mode: 'history',
@@ -30804,13 +30804,13 @@ Vue.filter('showDate', function (created) {
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('passport-clients', __webpack_require__(190));
+Vue.component('passport-clients', __webpack_require__(196));
 
-Vue.component('passport-authorized-clients', __webpack_require__(196));
+Vue.component('passport-authorized-clients', __webpack_require__(202));
 
-Vue.component('passport-personal-access-tokens', __webpack_require__(201));
+Vue.component('passport-personal-access-tokens', __webpack_require__(207));
 
-Vue.component('example-component', __webpack_require__(206));
+Vue.component('example-component', __webpack_require__(212));
 
 // const files = require.context('./', true, /\.vue$/i)
 
@@ -73925,7 +73925,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
             Fire.$emit('Reloadchidoans');
           }).catch(function () {
-            swal('Failed!', 'There was something wrongs.', 'warning');
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
           });
         }
       });
@@ -73934,8 +73934,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this3 = this;
 
       this.$Progress.start();
-      axios.get("api/chidoan").then(function (_ref) {
+      axios.get('api/doankhoato').then(function (_ref) {
         var data = _ref.data;
+
+        _this3.doankhoatos = data.data;
+      });
+      axios.get("api/chidoan").then(function (_ref2) {
+        var data = _ref2.data;
 
         _this3.chidoans = data.data;
         _this3.$Progress.finish();
@@ -73945,12 +73950,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           title: 'Có lỗi xảy ra!'
         });
         _this3.$Progress.fail();
-      });
-
-      axios.get('api/doankhoato').then(function (_ref2) {
-        var data = _ref2.data;
-
-        _this3.doankhoatos = data.data;
       });
     },
     createchidoan: function createchidoan() {
@@ -74656,7 +74655,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
             Fire.$emit('ReloadDoankhoatos');
           }).catch(function () {
-            swal('Failed!', 'There was something wrongs.', 'warning');
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
           });
         }
       });
@@ -75203,7 +75202,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
             Fire.$emit('Reloadcaptochucs');
           }).catch(function () {
-            swal('Failed!', 'There was something wrongs.', 'warning');
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
           });
         }
       });
@@ -75783,7 +75782,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }),
       options: {
         format: 'DD/MM/YYYY HH:mm',
-        useCurrent: false,
+        // useCurrent: false,
         // showClear: true,
         // showClose: true,
         locale: 'vi'
@@ -75864,7 +75863,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
             Fire.$emit('Reloadhoatdongs');
           }).catch(function () {
-            swal('Failed!', 'There was something wrongs.', 'warning');
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
           });
         }
       });
@@ -76425,7 +76424,7 @@ var render = function() {
                       [
                         _c("date-picker", {
                           class: {
-                            "is-invalid": _vm.form.errors.has("diadiem")
+                            "is-invalid": _vm.form.errors.has("thoigian")
                           },
                           attrs: {
                             config: _vm.options,
@@ -76452,7 +76451,7 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("input", {
+                        _c("textarea", {
                           directives: [
                             {
                               name: "model",
@@ -76567,7 +76566,7 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("input", {
+                        _c("textarea", {
                           directives: [
                             {
                               name: "model",
@@ -76913,7 +76912,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
             Fire.$emit('Reloadkhenthuongs');
           }).catch(function () {
-            swal('Failed!', 'There was something wrongs.', 'warning');
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
           });
         }
       });
@@ -77173,7 +77172,7 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("input", {
+                        _c("textarea", {
                           directives: [
                             {
                               name: "model",
@@ -77312,15 +77311,2170 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(191)
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(191)
+/* template */
+var __vue_template__ = __webpack_require__(192)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Kyluat.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-55d32b15", Component.options)
+  } else {
+    hotAPI.reload("data-v-55d32b15", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 191 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      editmode: false,
+      kyluats: {},
+      form: new Form({
+        id: '',
+        tenkyluat: '',
+        ghichu: ''
+      })
+    };
+  },
+
+  methods: {
+    editModal: function editModal(kyluat) {
+      this.editmode = true;
+      this.form.reset();
+      $('#addNewModal').modal('show');
+      this.form.fill(kyluat);
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $('#addNewModal').modal('show');
+    },
+    updatekyluat: function updatekyluat() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put('api/kyluat/' + this.form.id).then(function () {
+        Fire.$emit('Reloadkyluats');
+        $('#addNewModal').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Sửa thành công!'
+        });
+        _this.$Progress.finish();
+      }).catch(function () {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this.$Progress.fail();
+      });
+    },
+    deletekyluat: function deletekyluat(id) {
+      var _this2 = this;
+
+      swal({
+        title: 'Bạn có muốn xóa?',
+        text: "Bạn sẽ không thể hoàn nguyên điều này!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng, tôi chắc!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.form.delete('api/kyluat/' + id).then(function () {
+            swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
+            Fire.$emit('Reloadkyluats');
+          }).catch(function () {
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
+          });
+        }
+      });
+    },
+    loadkyluats: function loadkyluats() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      axios.get("api/kyluat").then(function (_ref) {
+        var data = _ref.data;
+
+        _this3.kyluats = data.data;
+        _this3.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this3.$Progress.fail();
+      });
+    },
+    createkyluat: function createkyluat() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.post('api/kyluat').then(function () {
+        Fire.$emit('Reloadkyluats');
+        $('#addNewModal').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Thêm thành công!'
+        });
+        _this4.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this4.$Progress.fail();
+      });
+    }
+  },
+  created: function created() {
+    var _this5 = this;
+
+    this.loadkyluats();
+    Fire.$on('Reloadkyluats', function () {
+      _this5.loadkyluats();
+    });
+  }
+});
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [_vm._v("Kỷ luật")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.newModal } },
+                [
+                  _c("i", { staticClass: "fas fa-plus-circle" }),
+                  _vm._v(" Thêm mới\n              ")
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _c(
+                "tbody",
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._l(_vm.kyluats, function(kyluat) {
+                    return _c("tr", { key: kyluat.id }, [
+                      _c("td", [_vm._v(_vm._s(kyluat.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(kyluat.tenkyluat))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(kyluat.ghichu))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm._f("showDate")(kyluat.created_at)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.editModal(kyluat)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-edit green" })]
+                        ),
+                        _vm._v("\n                  |\n                  "),
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.deletekyluat(kyluat.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash red" })]
+                        )
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNewModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title blue",
+                    attrs: { id: "addNewModalLabel" }
+                  },
+                  [_vm._v("Thêm mới")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title green",
+                    attrs: { id: "addNewModalLabel" }
+                  },
+                  [_vm._v("Sửa")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editmode ? _vm.updatekyluat() : _vm.createkyluat()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.tenkyluat,
+                              expression: "form.tenkyluat"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("tenkyluat")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "tenkyluat",
+                            placeholder: "Tên kỷ luật"
+                          },
+                          domProps: { value: _vm.form.tenkyluat },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "tenkyluat",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "tenkyluat" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.ghichu,
+                              expression: "form.ghichu"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("ghichu")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "ghichu",
+                            placeholder: "Ghi chú"
+                          },
+                          domProps: { value: _vm.form.ghichu },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "ghichu", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "ghichu" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Đóng")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Thêm")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Sửa")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Tên kỷ luật")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Ghi chú")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Ngày tạo")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sửa đổi")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-55d32b15", module.exports)
+  }
+}
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(194)
 /* template */
 var __vue_template__ = __webpack_require__(195)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/User.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d884f594", Component.options)
+  } else {
+    hotAPI.reload("data-v-d884f594", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 194 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      editmode: false,
+      // users: {},
+      users: [],
+      doankhoatos: [],
+      chidoans: [],
+      filterByDoankhoato: '',
+      filterByChidoan: '',
+      resetPassword: false,
+      form: new Form({
+        id: '',
+        username: '',
+        password: '',
+        tendoanvien: '',
+        ngaysinh: '',
+        gioitinh: '',
+        quequan: '',
+        dantoc: '',
+        ngayvaodoan: '',
+        noivaodoan: '',
+        chucvu: '',
+        sodienthoai: '',
+        dangvien: '',
+        hinhanh: '',
+        chidoan_id: ''
+      }),
+      options: {
+        format: 'DD/MM/YYYY',
+        useCurrent: false,
+        // showClear: true,
+        // showClose: true,
+        locale: 'vi'
+      }
+    };
+  },
+
+  methods: {
+    moment: function (_moment) {
+      function moment(_x) {
+        return _moment.apply(this, arguments);
+      }
+
+      moment.toString = function () {
+        return _moment.toString();
+      };
+
+      return moment;
+    }(function (date) {
+      return moment(date).format('DD/MM/YYYY HH:mm');
+    }),
+    // resetPassword(){
+
+    // },
+    editModal: function editModal(user) {
+      this.editmode = true;
+      this.resetPassword = false;
+      this.form.reset();
+      $('#addNewModal').modal('show');
+      this.form.fill(user);
+      this.form.ngaysinh = this.moment(user.ngaysinh);
+      this.form.ngayvaodoan = this.moment(user.ngayvaodoan);
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      this.resetPassword = false;
+      this.form.reset();
+      $('#addNewModal').modal('show');
+      this.form.doankhoato_id = this.filterByDoankhoato;
+      this.form.chidoan_id = this.filterByChidoan;
+      // this.form.fill(user);
+    },
+    updateuser: function updateuser() {
+      var _this = this;
+
+      if (this.resetPassword == true) this.form.password = 'doanvien';
+      this.$Progress.start();
+      this.form.put('api/user/' + this.form.id).then(function () {
+        Fire.$emit('Reloadusers');
+        $('#addNewModal').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Sửa thành công!'
+        });
+        _this.$Progress.finish();
+      }).catch(function () {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this.$Progress.fail();
+      });
+    },
+    deleteuser: function deleteuser(id) {
+      var _this2 = this;
+
+      swal({
+        title: 'Bạn có muốn xóa?',
+        text: "Bạn sẽ không thể hoàn nguyên điều này!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng, tôi chắc!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.form.delete('api/user/' + id).then(function () {
+            swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
+            Fire.$emit('Reloadusers');
+          }).catch(function () {
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
+          });
+        }
+      });
+    },
+    loadusers: function loadusers() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      axios.get('api/doankhoato').then(function (_ref) {
+        var data = _ref.data;
+
+        _this3.doankhoatos = data.data;
+      });
+      axios.get('api/chidoan').then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this3.chidoans = data.data;
+      });
+      axios.get("api/user").then(function (_ref3) {
+        var data = _ref3.data;
+
+        _this3.users = data.data;
+        _this3.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this3.$Progress.fail();
+      });
+    },
+    createuser: function createuser() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.password = 'doanvien';
+      this.form.post('api/user').then(function () {
+        Fire.$emit('Reloadusers');
+        $('#addNewModal').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Thêm thành công!'
+        });
+        _this4.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this4.$Progress.fail();
+      });
+    }
+  },
+  computed: {
+    filteredchidoans: function filteredchidoans() {
+      var _this5 = this;
+
+      return this.chidoans.filter(function (chidoans) {
+        return chidoans.doankhoato_id === _this5.filterByDoankhoato;
+      });
+    },
+    filteredusers: function filteredusers() {
+      var _this6 = this;
+
+      return this.users.filter(function (users) {
+        return users.chidoan_id === _this6.filterByChidoan;
+      });
+    }
+  },
+  created: function created() {
+    var _this7 = this;
+
+    this.loadusers();
+    Fire.$on('Reloadusers', function () {
+      _this7.loadusers();
+    });
+  }
+});
+
+/***/ }),
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [_vm._v("Đoàn viên")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-12 col-md-4" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterByDoankhoato,
+                        expression: "filterByDoankhoato"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterByDoankhoato = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          value: "",
+                          selected: "",
+                          disabled: "",
+                          hidden: ""
+                        }
+                      },
+                      [_vm._v("Chọn Đoàn khoa & Tổ")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.doankhoatos, function(doankhoato) {
+                      return _c(
+                        "option",
+                        {
+                          key: doankhoato.id,
+                          domProps: { value: doankhoato.id }
+                        },
+                        [_vm._v(_vm._s(doankhoato.tendoankhoato))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 col-md-3" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterByChidoan,
+                        expression: "filterByChidoan"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterByChidoan = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          value: "",
+                          selected: "",
+                          disabled: "",
+                          hidden: ""
+                        }
+                      },
+                      [_vm._v("Chi đoàn")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.filteredchidoans, function(chidoan) {
+                      return _c(
+                        "option",
+                        { key: chidoan.id, domProps: { value: chidoan.id } },
+                        [_vm._v(_vm._s(chidoan.tenchidoan))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.newModal } },
+                [
+                  _c("i", { staticClass: "fas fa-plus-circle" }),
+                  _vm._v(" Thêm mới\n              ")
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _c(
+                "tbody",
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._l(_vm.filteredusers, function(user) {
+                    return _c("tr", { key: user.id }, [
+                      _c("td", [_vm._v(_vm._s(user.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(user.username))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(user.tendoanvien))]),
+                      _vm._v(" "),
+                      user.gioitinh === 0 ? _c("td", [_vm._v("Nữ")]) : _vm._e(),
+                      _vm._v(" "),
+                      user.gioitinh === 1
+                        ? _c("td", [_vm._v("Nam")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(user.chucvu))]),
+                      _vm._v(" "),
+                      user.dangvien === 0 ? _c("td") : _vm._e(),
+                      _vm._v(" "),
+                      user.dangvien === 1
+                        ? _c("td", [_vm._v("Đảng viên")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm._f("showDate")(user.created_at)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.editModal(user)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-edit green" })]
+                        ),
+                        _vm._v("\n                  |\n                  "),
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.deleteuser(user.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash red" })]
+                        )
+                      ])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNewModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title blue",
+                    attrs: { id: "addNewModalLabel" }
+                  },
+                  [_vm._v("Thêm mới")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title green",
+                    attrs: { id: "addNewModalLabel" }
+                  },
+                  [_vm._v("Sửa")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editmode ? _vm.updateuser() : _vm.createuser()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.username,
+                              expression: "form.username"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("username")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "username",
+                            placeholder: "Mã đoàn viên"
+                          },
+                          domProps: { value: _vm.form.username },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "username",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "username" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.tendoanvien,
+                              expression: "form.tendoanvien"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("tendoanvien")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "tendoanvien",
+                            placeholder: "Tên Đoàn viên"
+                          },
+                          domProps: { value: _vm.form.tendoanvien },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "tendoanvien",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "tendoanvien" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.filterByDoankhoato,
+                                expression: "filterByDoankhoato"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("doankhoato_id")
+                            },
+                            attrs: {
+                              name: "doankhoato_id",
+                              id: "doankhoato_id"
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.filterByDoankhoato = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: {
+                                  value: "",
+                                  selected: "",
+                                  disabled: "",
+                                  hidden: ""
+                                }
+                              },
+                              [_vm._v("Đoàn Khoa & Tổ")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.doankhoatos, function(doankhoato) {
+                              return _c(
+                                "option",
+                                {
+                                  key: doankhoato.id,
+                                  domProps: { value: doankhoato.id }
+                                },
+                                [_vm._v(_vm._s(doankhoato.tendoankhoato))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "doankhoato_id" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.chidoan_id,
+                                expression: "form.chidoan_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("chidoan_id")
+                            },
+                            attrs: { name: "chidoan_id", id: "chidoan_id" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "chidoan_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: {
+                                  value: "",
+                                  selected: "",
+                                  disabled: "",
+                                  hidden: ""
+                                }
+                              },
+                              [_vm._v("Chi đoàn")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.filteredchidoans, function(chidoan) {
+                              return _c(
+                                "option",
+                                {
+                                  key: chidoan.id,
+                                  domProps: { value: chidoan.id }
+                                },
+                                [_vm._v(_vm._s(chidoan.tenchidoan))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "chidoan_id" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("date-picker", {
+                          class: {
+                            "is-invalid": _vm.form.errors.has("ngaysinh")
+                          },
+                          attrs: {
+                            config: _vm.options,
+                            name: "ngaysinh",
+                            placeholder: "Ngày sinh"
+                          },
+                          model: {
+                            value: _vm.form.ngaysinh,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "ngaysinh", $$v)
+                            },
+                            expression: "form.ngaysinh"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "ngaysinh" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.gioitinh,
+                                expression: "form.gioitinh"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("gioitinh")
+                            },
+                            attrs: { name: "gioitinh", id: "gioitinh" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "gioitinh",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: {
+                                  value: "",
+                                  selected: "",
+                                  disabled: "",
+                                  hidden: ""
+                                }
+                              },
+                              [_vm._v("Giới tính")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "0" } }, [
+                              _vm._v("Nữ")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("Nam")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "gioitinh" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.quequan,
+                              expression: "form.quequan"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("quequan")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "quequan",
+                            placeholder: "Quê quán"
+                          },
+                          domProps: { value: _vm.form.quequan },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "quequan", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "quequan" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.dantoc,
+                              expression: "form.dantoc"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("dantoc")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "dantoc",
+                            placeholder: "Dân tộc"
+                          },
+                          domProps: { value: _vm.form.dantoc },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "dantoc", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "dantoc" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("date-picker", {
+                          class: {
+                            "is-invalid": _vm.form.errors.has("ngayvaodoan")
+                          },
+                          attrs: {
+                            config: _vm.options,
+                            name: "ngayvaodoan",
+                            placeholder: "Ngày vào đoàn"
+                          },
+                          model: {
+                            value: _vm.form.ngayvaodoan,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "ngayvaodoan", $$v)
+                            },
+                            expression: "form.ngayvaodoan"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "ngayvaodoan" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.noivaodoan,
+                              expression: "form.noivaodoan"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("noivaodoan")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "noivaodoan",
+                            placeholder: "Nơi vào Đoàn"
+                          },
+                          domProps: { value: _vm.form.noivaodoan },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "noivaodoan",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "noivaodoan" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.chucvu,
+                                expression: "form.chucvu"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("chucvu")
+                            },
+                            attrs: { name: "chucvu", id: "chucvu" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "chucvu",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: {
+                                  value: "",
+                                  selected: "",
+                                  disabled: "",
+                                  hidden: ""
+                                }
+                              },
+                              [_vm._v("Chức vụ")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Bí thư" } }, [
+                              _vm._v("Bí thư")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Phó Bí thư" } }, [
+                              _vm._v("Phó Bí thư")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Đoàn viên" } }, [
+                              _vm._v("Đoàn viên")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "chucvu" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.sodienthoai,
+                              expression: "form.sodienthoai"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("sodienthoai")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "sodienthoai",
+                            placeholder: "Số điện thoại"
+                          },
+                          domProps: { value: _vm.form.sodienthoai },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "sodienthoai",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "sodienthoai" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.dangvien,
+                              expression: "form.dangvien"
+                            }
+                          ],
+                          class: {
+                            "is-invalid": _vm.form.errors.has("dangvien")
+                          },
+                          attrs: {
+                            type: "checkbox",
+                            name: "dangvien",
+                            "false-value": "0",
+                            "true-value": "1"
+                          },
+                          domProps: {
+                            checked: Array.isArray(_vm.form.dangvien)
+                              ? _vm._i(_vm.form.dangvien, null) > -1
+                              : _vm._q(_vm.form.dangvien, "1")
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.form.dangvien,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? "1" : "0"
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "dangvien",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.form,
+                                      "dangvien",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.form, "dangvien", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" Đảng viên"),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "tendoanvien" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "form-group"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.resetPassword,
+                              expression: "resetPassword"
+                            }
+                          ],
+                          attrs: { type: "checkbox", name: "resetPassword" },
+                          domProps: {
+                            checked: Array.isArray(_vm.resetPassword)
+                              ? _vm._i(_vm.resetPassword, null) > -1
+                              : _vm.resetPassword
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.resetPassword,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    (_vm.resetPassword = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.resetPassword = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
+                                }
+                              } else {
+                                _vm.resetPassword = $$c
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" Đặt lại mật khẩu"),
+                        _c("br")
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Đóng")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Thêm")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Sửa")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Mã Đoàn viên")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Tên Đoàn viên")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Giới tính")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Chức vụ")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Đảng viên")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Ngày tạo")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sửa đổi")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-d884f594", module.exports)
+  }
+}
+
+/***/ }),
+/* 196 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(197)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(200)
+/* template */
+var __vue_template__ = __webpack_require__(201)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -77359,13 +79513,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 191 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(192);
+var content = __webpack_require__(198);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -77385,7 +79539,7 @@ if(false) {
 }
 
 /***/ }),
-/* 192 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -77399,7 +79553,7 @@ exports.push([module.i, "\n.action-link[data-v-1552a5b6] {\n    cursor: pointer;
 
 
 /***/ }),
-/* 193 */
+/* 199 */
 /***/ (function(module, exports) {
 
 /**
@@ -77432,7 +79586,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 194 */
+/* 200 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77796,7 +79950,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 195 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -78357,19 +80511,19 @@ if (false) {
 }
 
 /***/ }),
-/* 196 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(197)
+  __webpack_require__(203)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(199)
+var __vue_script__ = __webpack_require__(205)
 /* template */
-var __vue_template__ = __webpack_require__(200)
+var __vue_template__ = __webpack_require__(206)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -78408,13 +80562,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 197 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(198);
+var content = __webpack_require__(204);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -78434,7 +80588,7 @@ if(false) {
 }
 
 /***/ }),
-/* 198 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -78448,7 +80602,7 @@ exports.push([module.i, "\n.action-link[data-v-397d14ca] {\n    cursor: pointer;
 
 
 /***/ }),
-/* 199 */
+/* 205 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78568,7 +80722,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 200 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -78677,19 +80831,19 @@ if (false) {
 }
 
 /***/ }),
-/* 201 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(202)
+  __webpack_require__(208)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(204)
+var __vue_script__ = __webpack_require__(210)
 /* template */
-var __vue_template__ = __webpack_require__(205)
+var __vue_template__ = __webpack_require__(211)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -78728,13 +80882,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 202 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(203);
+var content = __webpack_require__(209);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -78754,7 +80908,7 @@ if(false) {
 }
 
 /***/ }),
-/* 203 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -78768,7 +80922,7 @@ exports.push([module.i, "\n.action-link[data-v-49962cc0] {\n    cursor: pointer;
 
 
 /***/ }),
-/* 204 */
+/* 210 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79090,7 +81244,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 205 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -79468,15 +81622,15 @@ if (false) {
 }
 
 /***/ }),
-/* 206 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(207)
+var __vue_script__ = __webpack_require__(213)
 /* template */
-var __vue_template__ = __webpack_require__(208)
+var __vue_template__ = __webpack_require__(214)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -79515,7 +81669,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 207 */
+/* 213 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79544,7 +81698,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 208 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -79587,622 +81741,10 @@ if (false) {
 }
 
 /***/ }),
-/* 209 */
+/* 215 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(227)
-/* template */
-var __vue_template__ = __webpack_require__(228)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/kyluat.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-41fd6216", Component.options)
-  } else {
-    hotAPI.reload("data-v-41fd6216", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 227 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      editmode: false,
-      kyluats: {},
-      form: new Form({
-        id: '',
-        tenkyluat: '',
-        ghichu: ''
-      })
-    };
-  },
-
-  methods: {
-    editModal: function editModal(kyluat) {
-      this.editmode = true;
-      this.form.reset();
-      $('#addNewModal').modal('show');
-      this.form.fill(kyluat);
-    },
-    newModal: function newModal() {
-      this.editmode = false;
-      this.form.reset();
-      $('#addNewModal').modal('show');
-    },
-    updatekyluat: function updatekyluat() {
-      var _this = this;
-
-      this.$Progress.start();
-      this.form.put('api/kyluat/' + this.form.id).then(function () {
-        Fire.$emit('Reloadkyluats');
-        $('#addNewModal').modal('hide');
-        toast({
-          type: 'success',
-          title: 'Sửa thành công!'
-        });
-        _this.$Progress.finish();
-      }).catch(function () {
-        toast({
-          type: 'error',
-          title: 'Có lỗi xảy ra!'
-        });
-        _this.$Progress.fail();
-      });
-    },
-    deletekyluat: function deletekyluat(id) {
-      var _this2 = this;
-
-      swal({
-        title: 'Bạn có muốn xóa?',
-        text: "Bạn sẽ không thể hoàn nguyên điều này!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Vâng, tôi chắc!'
-      }).then(function (result) {
-        if (result.value) {
-          _this2.form.delete('api/kyluat/' + id).then(function () {
-            swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
-            Fire.$emit('Reloadkyluats');
-          }).catch(function () {
-            swal('Failed!', 'There was something wrongs.', 'warning');
-          });
-        }
-      });
-    },
-    loadkyluats: function loadkyluats() {
-      var _this3 = this;
-
-      this.$Progress.start();
-      axios.get("api/kyluat").then(function (_ref) {
-        var data = _ref.data;
-
-        _this3.kyluats = data.data;
-        _this3.$Progress.finish();
-      }).catch(function (error) {
-        toast({
-          type: 'error',
-          title: 'Có lỗi xảy ra!'
-        });
-        _this3.$Progress.fail();
-      });
-    },
-    createkyluat: function createkyluat() {
-      var _this4 = this;
-
-      this.$Progress.start();
-      this.form.post('api/kyluat').then(function () {
-        Fire.$emit('Reloadkyluats');
-        $('#addNewModal').modal('hide');
-        toast({
-          type: 'success',
-          title: 'Thêm thành công!'
-        });
-        _this4.$Progress.finish();
-      }).catch(function (error) {
-        toast({
-          type: 'error',
-          title: 'Có lỗi xảy ra!'
-        });
-        _this4.$Progress.fail();
-      });
-    }
-  },
-  created: function created() {
-    var _this5 = this;
-
-    this.loadkyluats();
-    Fire.$on('Reloadkyluats', function () {
-      _this5.loadkyluats();
-    });
-  }
-});
-
-/***/ }),
-/* 228 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [_vm._v("Kỷ luật")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", on: { click: _vm.newModal } },
-                [
-                  _c("i", { staticClass: "fas fa-plus-circle" }),
-                  _vm._v(" Thêm mới\n              ")
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body table-responsive p-0" }, [
-            _c("table", { staticClass: "table table-hover" }, [
-              _c(
-                "tbody",
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm._l(_vm.kyluats, function(kyluat) {
-                    return _c("tr", { key: kyluat.id }, [
-                      _c("td", [_vm._v(_vm._s(kyluat.id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(kyluat.tenkyluat))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(kyluat.ghichu))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(_vm._f("showDate")(kyluat.created_at)))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                _vm.editModal(kyluat)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-edit green" })]
-                        ),
-                        _vm._v("\n                  |\n                  "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                _vm.deletekyluat(kyluat.id)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-trash red" })]
-                        )
-                      ])
-                    ])
-                  })
-                ],
-                2
-              )
-            ])
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "addNewModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "addNewModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.editmode,
-                        expression: "!editmode"
-                      }
-                    ],
-                    staticClass: "modal-title blue",
-                    attrs: { id: "addNewModalLabel" }
-                  },
-                  [_vm._v("Thêm mới")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "h5",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.editmode,
-                        expression: "editmode"
-                      }
-                    ],
-                    staticClass: "modal-title green",
-                    attrs: { id: "addNewModalLabel" }
-                  },
-                  [_vm._v("Sửa")]
-                ),
-                _vm._v(" "),
-                _vm._m(1)
-              ]),
-              _vm._v(" "),
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      _vm.editmode ? _vm.updatekyluat() : _vm.createkyluat()
-                    }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "modal-body" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.tenkyluat,
-                              expression: "form.tenkyluat"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("tenkyluat")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "tenkyluat",
-                            placeholder: "Tên kỷ luật"
-                          },
-                          domProps: { value: _vm.form.tenkyluat },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "tenkyluat",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "tenkyluat" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.ghichu,
-                              expression: "form.ghichu"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("ghichu")
-                          },
-                          attrs: {
-                            type: "text",
-                            name: "ghichu",
-                            placeholder: "Ghi chú"
-                          },
-                          domProps: { value: _vm.form.ghichu },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "ghichu", $event.target.value)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "ghichu" }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "modal-footer" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button", "data-dismiss": "modal" }
-                      },
-                      [_vm._v("Đóng")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.editmode,
-                            expression: "!editmode"
-                          }
-                        ],
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("Thêm")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.editmode,
-                            expression: "editmode"
-                          }
-                        ],
-                        staticClass: "btn btn-success",
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("Sửa")]
-                    )
-                  ])
-                ]
-              )
-            ])
-          ]
-        )
-      ]
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("ID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Tên kỷ luật")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Ghi chú")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Ngày tạo")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Sửa đổi")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-41fd6216", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

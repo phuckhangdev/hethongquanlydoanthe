@@ -69,9 +69,9 @@
                   <has-error :form="form" field="tenkhenthuong"></has-error>
                 </div>
                 <div class="form-group">
-                  <input v-model="form.ghichu" type="text" name="ghichu"
+                  <textarea v-model="form.ghichu" type="text" name="ghichu"
                     placeholder="Ghi chú"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('ghichu') }">
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('ghichu') }"></textarea>
                   <has-error :form="form" field="ghichu"></has-error>
                 </div>
               </div>
@@ -150,7 +150,7 @@
                     Fire.$emit('Reloadkhenthuongs');
                 })
                 .catch(() => {
-                    swal('Failed!', 'There was something wrongs.', 'warning');
+                    swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
                 });
               }
             })

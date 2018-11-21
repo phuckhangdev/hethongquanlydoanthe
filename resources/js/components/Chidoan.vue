@@ -183,13 +183,17 @@
                     Fire.$emit('Reloadchidoans');
                 })
                 .catch(() => {
-                    swal('Failed!', 'There was something wrongs.', 'warning');
+                    swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
                 });
               }
             })
           },
           loadchidoans(){
             this.$Progress.start();
+            axios.get('api/doankhoato')
+            .then(({ data }) => {
+                (this.doankhoatos = data.data)
+            })
             axios.get("api/chidoan")
             .then(({ data }) => {
                 (this.chidoans = data.data)
@@ -203,10 +207,7 @@
               this.$Progress.fail();
             });
 
-            axios.get('api/doankhoato')
-            .then(({ data }) => {
-                (this.doankhoatos = data.data)
-            })
+            
           },
           createchidoan() {
             this.$Progress.start();

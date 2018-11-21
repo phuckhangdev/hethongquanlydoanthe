@@ -52,7 +52,7 @@ class HoatdongController extends Controller
             'tenhoatdong' => $request['tenhoatdong'],
             'namhoc' => $request['namhoc'],
             'hocky' => $request['hocky'],
-            'thoigian' => Carbon::parse($request['thoigian']),
+            'thoigian' => Carbon::createFromFormat('d/m/Y H:i',$request['thoigian'])->toDateTimeString(),
             'diadiem' => $request['diadiem'],
             'ghichu' => $request['ghichu'],
             'captochuc_id' => $request['captochuc_id'],
@@ -91,7 +91,9 @@ class HoatdongController extends Controller
             // 'ghichu' => ['string'],
             'captochuc_id' => ['required'],
         ]);
-        $request['thoigian'] = Carbon::parse($request['thoigian']);
+        
+        $request['thoigian'] = Carbon::createFromFormat('d/m/Y H:i',$request['thoigian'])->toDateTimeString();
+        // return ['message' => [$lasttime, $request['thoigian']]];
         $hoatdong->update($request->all());
     }
 

@@ -141,7 +141,7 @@
                     Fire.$emit('ReloadDoankhoatos');
                 })
                 .catch(() => {
-                    swal('Failed!', 'There was something wrongs.', 'warning');
+                    swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
                 });
               }
             })

@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+  
   <title>Quản Lý Đoàn Thể</title>
 
   <link rel="stylesheet" href="/css/app.css">
@@ -84,10 +84,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/user" class="nav-link">
                   <i class="fas fa-user-graduate nav-icon"></i>
                   <p>Đoàn viên</p>
-                </a>
+                </router-link>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">

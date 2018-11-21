@@ -25,7 +25,7 @@ class DoankhoatoController extends Controller
      */
     public function index()
     {
-        return Doankhoato::latest()->with('chidoans')->paginate();
+        return Doankhoato::latest()->with('chidoans')->paginate(Doankhoato::count());
         // return Doankhoato::all();
     }
 

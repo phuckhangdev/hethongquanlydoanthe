@@ -37,6 +37,7 @@ class UsersTableSeeder extends Seeder
         $admin->noivaodoan = 'Trường Đại Học Bạc Liêu';
         $admin->chucvu = 'Đoàn viên';
         $admin->dangvien = false;
+        $admin->sodienthoai = '0958552042';
         $admin->hinhanh = 'profile.png';
         $admin->chidoan_id = $ChiDoan_9DTH->id;
         $admin->save();
