@@ -6,13 +6,13 @@
               <div class="card-header">
                 <h3 class="card-title">Đoàn viên</h3>
                 <div class="row">
-                  <div class="col-sm-12 col-md-4"> 
+                  <div class="col-sm-6 col-md-4"> 
                     <select class="form-control" v-model="filterByDoankhoato" >
                       <option value="" selected disabled hidden>Chọn Đoàn khoa & Tổ</option>
                       <option v-for="doankhoato in doankhoatos" :key="doankhoato.id" :value="doankhoato.id">{{doankhoato.tendoankhoato}}</option>
                     </select>
                   </div>
-                  <div class="col-sm-12 col-md-3"> 
+                  <div class="col-sm-6 col-md-3"> 
                     <select class="form-control" v-model="filterByChidoan" >
                       <option value="" selected disabled hidden>Chi đoàn</option>
                       <option v-for="chidoan in filteredchidoans" :key="chidoan.id" :value="chidoan.id">{{chidoan.tenchidoan}}</option>
@@ -153,7 +153,7 @@
                     <option value="" selected disabled hidden>Chức vụ</option>
                     <option value="Bí thư">Bí thư</option>
                     <option value="Phó Bí thư">Phó Bí thư</option>
-                    <option value="Đoàn viên">Đoàn viên</option>
+                    <option value="Đoàn viên" selected>Đoàn viên</option>
                   </select>
                   <has-error :form="form" field="chucvu"></has-error>
                 </div>

@@ -41,9 +41,9 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:191', 'unique:users'],
             'password' => ['sometimes'],
             'tendoanvien' => ['required', 'string', 'max:191'],
-            'gioitinh' => ['required'],
-            'dantoc' => ['required'],
-            'chucvu' => ['required'],
+            // 'gioitinh' => ['required'],
+            // 'dantoc' => ['required'],
+            // 'chucvu' => ['required'],
             'chidoan_id' => ['required'],
         ]);
 
@@ -111,6 +111,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->delete();
     }
 }

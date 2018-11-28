@@ -252,21 +252,22 @@
               }
             })
           },
-          loadhoatdongs(){
-            this.$Progress.start();
+          loadFirtTime(){
             axios.get('api/captochuc')
             .then(({ data }) => {
                 (this.captochucs = data.data)
             })
-            
+
+            var currYear = (new Date()).getFullYear();
+            this.filterBynamhoc = currYear + ' - ' + (currYear + 1);
+            this.filterByhocky = '1';
+            this.loadhoatdongs();
+          },
+          loadhoatdongs(){
+            this.$Progress.start();
             axios.get("api/hoatdong")
             .then(({ data }) => {
                 (this.hoatdongs = data.data)
-                
-                var currYear = (new Date()).getFullYear();
-                this.filterBynamhoc = currYear + ' - ' + (currYear + 1);
-                this.filterByhocky = '1';
-
                 this.$Progress.finish();
             })
             .catch((error) => {
@@ -309,7 +310,7 @@
             },  
         },
         created() {
-            this.loadhoatdongs();
+            this.loadFirtTime();
             this.loadnamhocs();
             Fire.$on('Reloadhoatdongs', () => {
               this.loadhoatdongs();

@@ -15,7 +15,7 @@ class CreateHoatdongsTable extends Migration
     {
         Schema::create('hoatdongs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tenhoatdong', 100)->unique();
+            $table->string('tenhoatdong', 100);
             $table->string('namhoc',11);
             $table->integer('hocky');
             $table->datetime('thoigian');

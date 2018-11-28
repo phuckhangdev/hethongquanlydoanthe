@@ -14,9 +14,10 @@ class CreateCtHoatdongsTable extends Migration
     public function up()
     {
         Schema::create('ct_hoatdongs', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('hoatdong_id')->unsigned();
-            $table->string('vaitro');
+            $table->string('vaitro')->default('Tham gia');
             $table->string('thanhtich')->nullable();
 
             //FOREIGN KEY CONSTRAINTS
@@ -24,7 +25,7 @@ class CreateCtHoatdongsTable extends Migration
             $table->foreign('hoatdong_id')->references('id')->on('hoatdongs')->onDelete('cascade');
 
             //SETTING THE PRIMARY KEYS
-            $table->primary(['user_id','hoatdong_id']);
+            // $table->primary(['user_id','hoatdong_id']);
         });
     }
 

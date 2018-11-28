@@ -15599,7 +15599,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(199)
+var listToStyles = __webpack_require__(202)
 
 /*
 type StyleObject = {
@@ -30690,7 +30690,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(141);
-module.exports = __webpack_require__(215);
+module.exports = __webpack_require__(218);
 
 
 /***/ }),
@@ -30776,7 +30776,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_progressbar___default.a, {
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]);
 
-var routes = [{ path: '/chidoan', component: __webpack_require__(175) }, { path: '/doankhoato', component: __webpack_require__(178) }, { path: '/captochuc', component: __webpack_require__(181) }, { path: '/hoatdong', component: __webpack_require__(184) }, { path: '/khenthuong', component: __webpack_require__(187) }, { path: '/kyluat', component: __webpack_require__(190) }, { path: '/user', component: __webpack_require__(193) }];
+var routes = [{ path: '/chidoan', component: __webpack_require__(175) }, { path: '/doankhoato', component: __webpack_require__(178) }, { path: '/captochuc', component: __webpack_require__(181) }, { path: '/hoatdong', component: __webpack_require__(184) }, { path: '/khenthuong', component: __webpack_require__(187) }, { path: '/kyluat', component: __webpack_require__(190) }, { path: '/user', component: __webpack_require__(193) }, { path: '/ct_hoatdong', component: __webpack_require__(196) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_6_vue_router__["a" /* default */]({
   mode: 'history',
@@ -30804,13 +30804,13 @@ Vue.filter('showDate', function (created) {
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('passport-clients', __webpack_require__(196));
+Vue.component('passport-clients', __webpack_require__(199));
 
-Vue.component('passport-authorized-clients', __webpack_require__(202));
+Vue.component('passport-authorized-clients', __webpack_require__(205));
 
-Vue.component('passport-personal-access-tokens', __webpack_require__(207));
+Vue.component('passport-personal-access-tokens', __webpack_require__(210));
 
-Vue.component('example-component', __webpack_require__(212));
+Vue.component('example-component', __webpack_require__(215));
 
 // const files = require.context('./', true, /\.vue$/i)
 
@@ -75868,36 +75868,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    loadhoatdongs: function loadhoatdongs() {
+    loadFirtTime: function loadFirtTime() {
       var _this3 = this;
 
-      this.$Progress.start();
       axios.get('api/captochuc').then(function (_ref) {
         var data = _ref.data;
 
         _this3.captochucs = data.data;
       });
 
+      var currYear = new Date().getFullYear();
+      this.filterBynamhoc = currYear + ' - ' + (currYear + 1);
+      this.filterByhocky = '1';
+      this.loadhoatdongs();
+    },
+    loadhoatdongs: function loadhoatdongs() {
+      var _this4 = this;
+
+      this.$Progress.start();
       axios.get("api/hoatdong").then(function (_ref2) {
         var data = _ref2.data;
 
-        _this3.hoatdongs = data.data;
-
-        var currYear = new Date().getFullYear();
-        _this3.filterBynamhoc = currYear + ' - ' + (currYear + 1);
-        _this3.filterByhocky = '1';
-
-        _this3.$Progress.finish();
+        _this4.hoatdongs = data.data;
+        _this4.$Progress.finish();
       }).catch(function (error) {
         toast({
           type: 'error',
           title: 'Có lỗi xảy ra!'
         });
-        _this3.$Progress.fail();
+        _this4.$Progress.fail();
       });
     },
     createhoatdong: function createhoatdong() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$Progress.start();
       this.form.post('api/hoatdong').then(function () {
@@ -75907,32 +75910,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: 'success',
           title: 'Thêm thành công!'
         });
-        _this4.$Progress.finish();
+        _this5.$Progress.finish();
       }).catch(function (error) {
         toast({
           type: 'error',
           title: 'Có lỗi xảy ra!'
         });
-        _this4.$Progress.fail();
+        _this5.$Progress.fail();
       });
     }
   },
   computed: {
     filteredhoatdongs: function filteredhoatdongs() {
-      var _this5 = this;
+      var _this6 = this;
 
       return this.hoatdongs.filter(function (hoatdongs) {
-        return hoatdongs.namhoc.match(_this5.filterBynamhoc) && hoatdongs.hocky == _this5.filterByhocky;
+        return hoatdongs.namhoc.match(_this6.filterBynamhoc) && hoatdongs.hocky == _this6.filterByhocky;
       });
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
-    this.loadhoatdongs();
+    this.loadFirtTime();
     this.loadnamhocs();
     Fire.$on('Reloadhoatdongs', function () {
-      _this6.loadhoatdongs();
+      _this7.loadhoatdongs();
     });
   }
 });
@@ -78355,7 +78358,7 @@ var render = function() {
             _c("h3", { staticClass: "card-title" }, [_vm._v("Đoàn viên")]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-sm-12 col-md-4" }, [
+              _c("div", { staticClass: "col-sm-6 col-md-4" }, [
                 _c(
                   "select",
                   {
@@ -78413,7 +78416,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 col-md-3" }, [
+              _c("div", { staticClass: "col-sm-6 col-md-3" }, [
                 _c(
                   "select",
                   {
@@ -79175,9 +79178,11 @@ var render = function() {
                               _vm._v("Phó Bí thư")
                             ]),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "Đoàn viên" } }, [
-                              _vm._v("Đoàn viên")
-                            ])
+                            _c(
+                              "option",
+                              { attrs: { value: "Đoàn viên", selected: "" } },
+                              [_vm._v("Đoàn viên")]
+                            )
                           ]
                         ),
                         _vm._v(" "),
@@ -79466,15 +79471,1244 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(197)
+/* template */
+var __vue_template__ = __webpack_require__(198)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Ct_hoatdong.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-391072f1", Component.options)
+  } else {
+    hotAPI.reload("data-v-391072f1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 197 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      // hoatdongs: {},
+      hoatdongs: [],
+      captochucs: [],
+      namhocs: [],
+      doankhoatos: [],
+      chidoans: [],
+      users: [],
+      ct_hoatdongs: [],
+      // filterBycaptochuc: '',
+      filterBynamhoc: '',
+      filterByhocky: '',
+      filterByhoatdong: '',
+      filterByDoankhoato: '',
+      filterByChidoan: '',
+      form: new Form({
+        id: '',
+        user_id: '',
+        hoatdong_id: '',
+        vaitro: '',
+        thanhtich: ''
+      }),
+      options: {
+        format: 'DD/MM/YYYY HH:mm',
+        // useCurrent: false,
+        // showClear: true,
+        // showClose: true,
+        locale: 'vi'
+      }
+    };
+  },
+
+  methods: {
+    moment: function (_moment) {
+      function moment(_x) {
+        return _moment.apply(this, arguments);
+      }
+
+      moment.toString = function () {
+        return _moment.toString();
+      };
+
+      return moment;
+    }(function (date) {
+      return moment(date).format('DD/MM/YYYY HH:mm');
+    }),
+    loadnamhocs: function loadnamhocs() {
+      var i;
+      var currYear = new Date().getFullYear();
+      for (i = currYear; i >= 2006; i--) {
+        this.namhocs.push(i + ' - ' + (i + 1));
+      }
+    },
+    editModal: function editModal(ct_hoatdong) {
+      this.form.reset();
+      $('#updateModal').modal('show');
+      this.form.fill(ct_hoatdong);
+    },
+    addUser: function addUser(id) {
+      this.form.user_id = id;
+      this.form.hoatdong_id = this.filterByhoatdong;
+      this.form.vaitro = 'Tham gia';
+      this.createct_hoatdong();
+    },
+    addModal: function addModal() {
+      $('#addModal').modal('show');
+    },
+    updatect_hoatdong: function updatect_hoatdong() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put('api/ct_hoatdong/' + this.form.id).then(function () {
+        Fire.$emit('Reloadct_hoatdongs');
+        $('#addNewModal').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Sửa thành công!'
+        });
+        _this.$Progress.finish();
+      }).catch(function () {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this.$Progress.fail();
+      });
+    },
+    deletect_hoatdong: function deletect_hoatdong(id) {
+      var _this2 = this;
+
+      swal({
+        title: 'Bạn có muốn xóa?',
+        text: "Bạn sẽ không thể hoàn nguyên điều này!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng, tôi chắc!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.form.delete('api/ct_hoatdong/' + id).then(function () {
+            swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
+            Fire.$emit('Reloadct_hoatdongs');
+          }).catch(function () {
+            swal('Lỗi!', 'Có lỗi xảy ra!', 'warning');
+          });
+        }
+      });
+    },
+    loadFirstTime: function loadFirstTime() {
+      var _this3 = this;
+
+      axios.get('api/captochuc').then(function (_ref) {
+        var data = _ref.data;
+
+        _this3.captochucs = data.data;
+      });
+      axios.get('api/doankhoato').then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this3.doankhoatos = data.data;
+      });
+      axios.get('api/chidoan').then(function (_ref3) {
+        var data = _ref3.data;
+
+        _this3.chidoans = data.data;
+      });
+      axios.get('api/user').then(function (_ref4) {
+        var data = _ref4.data;
+
+        _this3.users = data.data;
+      });
+      axios.get('api/hoatdong').then(function (_ref5) {
+        var data = _ref5.data;
+
+        _this3.hoatdongs = data.data;
+      });
+      var currYear = new Date().getFullYear();
+      this.filterBynamhoc = currYear + ' - ' + (currYear + 1);
+      this.filterByhocky = '1';
+      this.loadct_hoatdongs();
+    },
+    loadct_hoatdongs: function loadct_hoatdongs() {
+      var _this4 = this;
+
+      this.$Progress.start();
+
+      axios.get("api/ct_hoatdong").then(function (_ref6) {
+        var data = _ref6.data;
+
+        _this4.ct_hoatdongs = data.data;
+        _this4.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this4.$Progress.fail();
+      });
+    },
+    createct_hoatdong: function createct_hoatdong() {
+      var _this5 = this;
+
+      this.$Progress.start();
+      this.form.post('api/ct_hoatdong').then(function () {
+        Fire.$emit('Reloadct_hoatdongs');
+        toast({
+          type: 'success',
+          title: 'Thêm thành công!'
+        });
+        _this5.$Progress.finish();
+      }).catch(function (error) {
+        toast({
+          type: 'error',
+          title: 'Có lỗi xảy ra!'
+        });
+        _this5.$Progress.fail();
+      });
+    }
+  },
+  computed: {
+    filteredhoatdongs: function filteredhoatdongs() {
+      var _this6 = this;
+
+      return this.hoatdongs.filter(function (hoatdongs) {
+        return hoatdongs.namhoc.match(_this6.filterBynamhoc) && hoatdongs.hocky == _this6.filterByhocky;
+      });
+    },
+    filteredchidoans: function filteredchidoans() {
+      var _this7 = this;
+
+      return this.chidoans.filter(function (chidoans) {
+        return chidoans.doankhoato_id === _this7.filterByDoankhoato;
+      });
+    },
+    filteredusers: function filteredusers() {
+      var _this8 = this;
+
+      return this.users.filter(function (users) {
+        return users.chidoan_id === _this8.filterByChidoan;
+      });
+    },
+    filteredct_hoatdongs: function filteredct_hoatdongs() {
+      var _this9 = this;
+
+      return this.ct_hoatdongs.filter(function (ct_hoatdongs) {
+        return ct_hoatdongs.hoatdong_id === _this9.filterByhoatdong;
+      });
+    }
+  },
+  created: function created() {
+    var _this10 = this;
+
+    this.loadFirstTime();
+    this.loadnamhocs();
+    Fire.$on('Reloadct_hoatdongs', function () {
+      _this10.loadct_hoatdongs();
+    });
+  }
+});
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Danh sách hoạt động")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6 col-md-3" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterBynamhoc,
+                        expression: "filterBynamhoc"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterBynamhoc = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          value: "",
+                          selected: "",
+                          disabled: "",
+                          hidden: ""
+                        }
+                      },
+                      [_vm._v("Năm học")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.namhocs, function(namhoc) {
+                      return _c(
+                        "option",
+                        { key: namhoc.index, domProps: { value: namhoc } },
+                        [_vm._v(_vm._s(namhoc))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6 col-md-2" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterByhocky,
+                        expression: "filterByhocky"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterByhocky = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          value: "",
+                          selected: "",
+                          disabled: "",
+                          hidden: ""
+                        }
+                      },
+                      [_vm._v("Học kỳ")]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Học kỳ 1")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Học kỳ 2")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 col-md-4" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterByhoatdong,
+                        expression: "filterByhoatdong"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterByhoatdong = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          value: "",
+                          selected: "",
+                          disabled: "",
+                          hidden: ""
+                        }
+                      },
+                      [_vm._v("Hoạt động")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.filteredhoatdongs, function(hoatdong) {
+                      return _c(
+                        "option",
+                        {
+                          key: hoatdong.index,
+                          domProps: { value: hoatdong.id }
+                        },
+                        [_vm._v(_vm._s(hoatdong.tenhoatdong))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.addModal } },
+                [
+                  _c("i", { staticClass: "fas fa-plus-circle" }),
+                  _vm._v(" Thêm dữ liệu\n              ")
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _c(
+                "tbody",
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._l(_vm.filteredct_hoatdongs, function(
+                    ct_hoatdong,
+                    index
+                  ) {
+                    return _c(
+                      "tr",
+                      { key: index },
+                      [
+                        _vm._l(_vm.users, function(user) {
+                          return [
+                            ct_hoatdong.user_id == user.id
+                              ? _c("td", { key: user.id }, [
+                                  _vm._v(_vm._s(user.username))
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            ct_hoatdong.user_id == user.id
+                              ? _c("td", { key: user.id }, [
+                                  _vm._v(_vm._s(user.tendoanvien))
+                                ])
+                              : _vm._e()
+                          ]
+                        }),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(ct_hoatdong.vaitro))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(ct_hoatdong.thanhtich))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  _vm.editModal(ct_hoatdong)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-edit green" })]
+                          ),
+                          _vm._v("\n                  |\n                  "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  _vm.deletect_hoatdong(ct_hoatdong.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-trash red" })]
+                          )
+                        ])
+                      ],
+                      2
+                    )
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "updateModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "updateModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.updatect_hoatdong()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.vaitro,
+                                expression: "form.vaitro"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("vaitro")
+                            },
+                            attrs: { name: "vaitro", id: "vaitro" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "vaitro",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: {
+                                  value: "",
+                                  selected: "",
+                                  disabled: "",
+                                  hidden: ""
+                                }
+                              },
+                              [_vm._v("Vai trò")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Tham gia" } }, [
+                              _vm._v("Tham gia")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Tổ chức" } }, [
+                              _vm._v("Tổ chức")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "vaitro" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.thanhtich,
+                              expression: "form.thanhtich"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("thanhtich")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "thanhtich",
+                            placeholder: "Thành tích"
+                          },
+                          domProps: { value: _vm.form.thanhtich },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "thanhtich",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "thanhtich" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-6 col-md-7" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.filterByDoankhoato,
+                              expression: "filterByDoankhoato"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.filterByDoankhoato = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: {
+                                value: "",
+                                selected: "",
+                                disabled: "",
+                                hidden: ""
+                              }
+                            },
+                            [_vm._v("Đoàn khoa & Tổ")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.doankhoatos, function(doankhoato) {
+                            return _c(
+                              "option",
+                              {
+                                key: doankhoato.id,
+                                domProps: { value: doankhoato.id }
+                              },
+                              [_vm._v(_vm._s(doankhoato.tendoankhoato))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-6 col-md-5" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.filterByChidoan,
+                              expression: "filterByChidoan"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.filterByChidoan = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: {
+                                value: "",
+                                selected: "",
+                                disabled: "",
+                                hidden: ""
+                              }
+                            },
+                            [_vm._v("Chi đoàn")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.filteredchidoans, function(chidoan) {
+                            return _c(
+                              "option",
+                              {
+                                key: chidoan.id,
+                                domProps: { value: chidoan.id }
+                              },
+                              [_vm._v(_vm._s(chidoan.tenchidoan))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("table", { staticClass: "table table-hover" }, [
+                    _c(
+                      "tbody",
+                      [
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _vm._l(_vm.filteredusers, function(user) {
+                          return _c(
+                            "tr",
+                            { key: user.id },
+                            [
+                              _c("td", [_vm._v(_vm._s(user.username))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(user.tendoanvien))]),
+                              _vm._v(" "),
+                              _vm._l(_vm.filteredchidoans, function(chidoan) {
+                                return user.chidoan_id === chidoan.id
+                                  ? _c("td", { key: chidoan.id }, [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(chidoan.tenchidoan) +
+                                          "\n                "
+                                      )
+                                    ])
+                                  : _vm._e()
+                              }),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.addUser(user.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    Thêm\n                  "
+                                    )
+                                  ]
+                                )
+                              ])
+                            ],
+                            2
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(5)
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("Mã Đoàn viên")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Tên Đoàn viên")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Vai trò")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Thành tích")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sửa đổi")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title green", attrs: { id: "updateModalLabel" } },
+        [_vm._v("Sửa")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Đóng")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-success", attrs: { type: "submit" } },
+        [_vm._v("Sửa")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title green", attrs: { id: "addModalLabel" } },
+        [_vm._v("Thêm dữ liệu")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("Mã Đoàn viên")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Tên Đoàn viên")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Chi đoàn")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Thêm")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Đóng")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-391072f1", module.exports)
+  }
+}
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(197)
+  __webpack_require__(200)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(200)
+var __vue_script__ = __webpack_require__(203)
 /* template */
-var __vue_template__ = __webpack_require__(201)
+var __vue_template__ = __webpack_require__(204)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -79513,13 +80747,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 197 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(198);
+var content = __webpack_require__(201);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -79539,7 +80773,7 @@ if(false) {
 }
 
 /***/ }),
-/* 198 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -79553,7 +80787,7 @@ exports.push([module.i, "\n.action-link[data-v-1552a5b6] {\n    cursor: pointer;
 
 
 /***/ }),
-/* 199 */
+/* 202 */
 /***/ (function(module, exports) {
 
 /**
@@ -79586,7 +80820,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 200 */
+/* 203 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79950,7 +81184,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 201 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80511,19 +81745,19 @@ if (false) {
 }
 
 /***/ }),
-/* 202 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(203)
+  __webpack_require__(206)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(205)
+var __vue_script__ = __webpack_require__(208)
 /* template */
-var __vue_template__ = __webpack_require__(206)
+var __vue_template__ = __webpack_require__(209)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -80562,13 +81796,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 203 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(204);
+var content = __webpack_require__(207);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -80588,7 +81822,7 @@ if(false) {
 }
 
 /***/ }),
-/* 204 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -80602,7 +81836,7 @@ exports.push([module.i, "\n.action-link[data-v-397d14ca] {\n    cursor: pointer;
 
 
 /***/ }),
-/* 205 */
+/* 208 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80722,7 +81956,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 206 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80831,19 +82065,19 @@ if (false) {
 }
 
 /***/ }),
-/* 207 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(208)
+  __webpack_require__(211)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(210)
+var __vue_script__ = __webpack_require__(213)
 /* template */
-var __vue_template__ = __webpack_require__(211)
+var __vue_template__ = __webpack_require__(214)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -80882,13 +82116,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 208 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(209);
+var content = __webpack_require__(212);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -80908,7 +82142,7 @@ if(false) {
 }
 
 /***/ }),
-/* 209 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -80922,7 +82156,7 @@ exports.push([module.i, "\n.action-link[data-v-49962cc0] {\n    cursor: pointer;
 
 
 /***/ }),
-/* 210 */
+/* 213 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81244,7 +82478,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 });
 
 /***/ }),
-/* 211 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81622,15 +82856,15 @@ if (false) {
 }
 
 /***/ }),
-/* 212 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(213)
+var __vue_script__ = __webpack_require__(216)
 /* template */
-var __vue_template__ = __webpack_require__(214)
+var __vue_template__ = __webpack_require__(217)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -81669,7 +82903,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 213 */
+/* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81698,7 +82932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 214 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81741,7 +82975,7 @@ if (false) {
 }
 
 /***/ }),
-/* 215 */
+/* 218 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
