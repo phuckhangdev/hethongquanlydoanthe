@@ -39,6 +39,59 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'username' => ['required', 'string', 'max:191', 'unique:users'],
+            'password' => ['required','string','min:6'],
+            'tendoanvien' => ['required', 'string', 'max:191'],
+            'gioitinh' => ['required'],
+            // 'dantoc' => ['required'],
+            // 'chucvu' => ['required'],
+            'chidoan_id' => ['required'],
+        ]);
+
+        // return User::create([
+        //     'username' => $request['username'],
+        //     'password' => bcrypt($request['password']),
+        //     'tendoanvien' => $request['tendoanvien'],
+        //     'ngaysinh' => Carbon::createFromFormat('d/m/Y',$request['ngaysinh']),
+        //     'gioitinh' => $request['gioitinh'],
+        //     'quequan' => $request['quequan'],
+        //     'dantoc' => $request['dantoc'],
+        //     'ngayvaodoan' => Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']),
+        //     'noivaodoan' => $request['noivaodoan'],
+        //     'chucvu' => $request['chucvu'],
+        //     'sodienthoai' => $request['sodienthoai'],
+        //     'dangvien' => $request['dangvien'],
+        //     'chidoan_id' => $request['chidoan_id'],
+        // ]);
+        if($request['hinhanh'] != 'profile.png'){
+            $name = time().'.' . explode('/', explode(':', substr($request['hinhanh'], 0, strpos($request['hinhanh'], ';')))[1])[1];
+            \Image::make($request['hinhanh'])->save(public_path('img/profile/').$name);
+            $request->merge(['hinhanh' => $name]);
+        }
+
+        $newUser = new User();
+        $newUser->username = $request['username'];
+        $newUser->password = Hash::make($request['password']);
+        $newUser->tendoanvien = $request['tendoanvien'];
+        $newUser->ngaysinh = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
+        $newUser->gioitinh = $request['gioitinh'];
+        $newUser->quequan = $request['quequan'];
+        $newUser->dantoc = $request['dantoc'];
+        $newUser->ngayvaodoan = Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']);
+        $newUser->noivaodoan = $request['noivaodoan'];
+        $newUser->chucvu = $request['chucvu'];
+        $newUser->sodienthoai = $request['sodienthoai'];
+        $newUser->dangvien = $request['dangvien'];
+        $newUser->hinhanh = $request['hinhanh'];    
+        $newUser->chidoan_id = $request['chidoan_id'];    
+        $newUser->save(); 
+        return $newUser;
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth('api')->user();
+        $this->validate($request,[
+            'username' => ['required', 'string', 'max:191', 'unique:users,username,'.$user->id],
             'password' => ['sometimes'],
             'tendoanvien' => ['required', 'string', 'max:191'],
             // 'gioitinh' => ['required'],
@@ -46,24 +99,31 @@ class UserController extends Controller
             // 'chucvu' => ['required'],
             'chidoan_id' => ['required'],
         ]);
-
-        return User::create([
-            'username' => $request['username'],
-            'password' => bcrypt($request['password']),
-            'tendoanvien' => $request['tendoanvien'],
-            'ngaysinh' => Carbon::parse($request['ngaysinh']),
-            'gioitinh' => $request['gioitinh'],
-            'quequan' => $request['quequan'],
-            'dantoc' => $request['dantoc'],
-            'ngayvaodoan' => Carbon::parse($request['ngayvaodoan']),
-            'noivaodoan' => $request['noivaodoan'],
-            'chucvu' => $request['chucvu'],
-            'sodienthoai' => $request['sodienthoai'],
-            'dangvien' => $request['dangvien'],
-            'chidoan_id' => $request['chidoan_id'],
-        ]);
+        $currenthinhanh = $user->hinhanh;
+        if($request->hinhanh != $currenthinhanh){
+            $name = time().'.' . explode('/', explode(':', substr($request->hinhanh, 0, strpos($request->hinhanh, ';')))[1])[1];
+            \Image::make($request->hinhanh)->save(public_path('img/profile/').$name);
+            $request->merge(['hinhanh' => $name]);
+            if($currenthinhanh != 'profile.png'){
+                $userhinhanh = public_path('img/profile/').$currenthinhanh;
+                if(file_exists($userhinhanh)){
+                    @unlink($userhinhanh);
+                }
+            }
+        }
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+        $request['ngaysinh'] = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
+        $request['ngayvaodoan'] = Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']);
+        $user->update($request->all());
     }
 
+    
+    public function profile()
+    {
+        return auth('api')->user();
+    }
     /**
      * Display the specified resource.
      *
@@ -90,13 +150,26 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:191', 'unique:users,username,'.$user->id],
             'password' => ['sometimes'],
             'tendoanvien' => ['required', 'string', 'max:191'],
-            'gioitinh' => ['required'],
-            'dantoc' => ['required'],
-            'chucvu' => ['required'],
+            // 'gioitinh' => ['required'],
+            // 'dantoc' => ['required'],
+            // 'chucvu' => ['required'],
             'chidoan_id' => ['required'],
         ]);
-        if($request['password']!='')
-            $request['password'] = Hash::make($request['password']);
+        $currenthinhanh = $user->hinhanh;
+        if($request->hinhanh != $currenthinhanh){
+            $name = time().'.' . explode('/', explode(':', substr($request->hinhanh, 0, strpos($request->hinhanh, ';')))[1])[1];
+            \Image::make($request->hinhanh)->save(public_path('img/profile/').$name);
+            $request->merge(['hinhanh' => $name]);
+            if($currenthinhanh != 'profile.png'){
+                $userhinhanh = public_path('img/profile/').$currenthinhanh;
+                if(file_exists($userhinhanh)){
+                    @unlink($userhinhanh);
+                }
+            }
+        }
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
         // $request['ngaysinh'] = Carbon::parse($request['ngaysinh']);
         $request['ngaysinh'] = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
         $request['ngayvaodoan'] = Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']);

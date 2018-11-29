@@ -1,3 +1,23 @@
+<style>
+.user-image {
+    position: absolute;
+    left: 50%;
+    margin-left: -45px;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+.user-image > img {
+    width: 84px;
+    height: -webkit-fill-available;
+    object-fit: cover;
+    border: 3px solid #3484dc;
+}
+#user-image{
+    height: 90px;
+}
+</style>
+
 <template>
     <div class="container">
         <div class="row">
@@ -85,6 +105,7 @@
               <!-- Form -->
               <form @submit.prevent="editmode ? updateuser() : createuser()">
               <div class="modal-body">
+                
                 <div class="form-group">
                   <input v-model="form.username" type="text" name="username"
                     placeholder="Mã đoàn viên"
@@ -163,10 +184,18 @@
                     class="form-control" :class="{ 'is-invalid': form.errors.has('sodienthoai') }">
                   <has-error :form="form" field="sodienthoai"></has-error>
                 </div>
+                <div class="form-group" id="user-image">
+                  <div class="user-image">
+                    <img class="img-circle" :src="getProfilehinhanh()" alt="User Avatar">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <input type="file" @change="updateProfile" name="hinhanh" class="form-input">
+                </div>
                 <div class="form-group">
                   <input v-model="form.dangvien" type="checkbox" name="dangvien" false-value="0" true-value="1"
                      :class="{ 'is-invalid': form.errors.has('dangvien') }"> Đảng viên<br>
-                  <has-error :form="form" field="tendoanvien"></has-error>
+                  <has-error :form="form" field="dangvien"></has-error>
                 </div>
                 <div v-show="editmode" class="form-group">
                   <input v-model="resetPassword" type="checkbox" name="resetPassword"> Đặt lại mật khẩu<br>
@@ -232,9 +261,10 @@
           moment: function (date) {
                 return moment(date).format('DD/MM/YYYY HH:mm');
           },
-          // resetPassword(){
-            
-          // },
+          getProfilehinhanh(){
+              let hinhanh = (this.form.hinhanh.length > 200) ? this.form.hinhanh : "img/profile/"+ this.form.hinhanh ;
+              return hinhanh;
+          },
           editModal(user){
             this.editmode = true;
             this.resetPassword = false;
@@ -251,9 +281,30 @@
             $('#addNewModal').modal('show');
             this.form.doankhoato_id = this.filterByDoankhoato;
             this.form.chidoan_id = this.filterByChidoan;
+            this.form.hinhanh = 'profile.png';
             // this.form.fill(user);
           },
+          updateProfile(e){
+              let file = e.target.files[0];
+              let reader = new FileReader();
+              let limit = 1024 * 1024 * 2;
+              if(file['size'] > limit){
+                  swal({
+                      type: 'error',
+                      title: 'Oops...',
+                      text: 'Ảnh của bạn quá lớn',
+                  })
+                  return false;
+              }
+              reader.onloadend = (file) => {
+                  this.form.hinhanh = reader.result;
+              }
+              reader.readAsDataURL(file);
+          },
           updateuser(){
+            if(this.form.password == ''){
+              this.form.password = undefined;
+            }
             if(this.resetPassword == true)
             this.form.password = 'doanvien';
             this.$Progress.start();
@@ -297,8 +348,7 @@
               }
             })
           },
-          loadusers(){
-            this.$Progress.start();
+          loadFirtTime(){
             axios.get('api/doankhoato')
             .then(({ data }) => {
                 (this.doankhoatos = data.data)
@@ -307,6 +357,11 @@
             .then(({ data }) => {
                 (this.chidoans = data.data)
             })
+            this.loadusers();
+          },
+          loadusers(){
+            this.$Progress.start();
+            
             axios.get("api/user")
             .then(({ data }) => {
                 (this.users = data.data)
@@ -323,6 +378,9 @@
           createuser() {
             this.$Progress.start();
             this.form.password = 'doanvien';
+            if(this.form.hinhanh == ''){
+              this.form.hinhanh = 'profile.png';
+            }
             this.form.post('api/user')
             .then(() => {
               Fire.$emit('Reloadusers');
@@ -356,7 +414,7 @@
             }
         },
         created() {
-            this.loadusers();
+            this.loadFirtTime();
             Fire.$on('Reloadusers', () => {
               this.loadusers();
             })

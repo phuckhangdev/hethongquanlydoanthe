@@ -39,7 +39,7 @@
                   <tbody><tr>
                     <th>Mã Đoàn viên</th>
                     <th>Tên Đoàn viên</th>
-                    <!-- <th>Chi đoàn</th> -->
+                    <th>Chi đoàn</th>
                     <th>Vai trò</th>
                     <th>Thành tích</th>
                     <th>Sửa đổi</th>
@@ -50,9 +50,7 @@
                     <template v-for="user in users" >
                     <td v-bind:key="user.id" v-if="ct_hoatdong.user_id==user.id">{{user.username}}</td>
                     <td v-bind:key="user.id" v-if="ct_hoatdong.user_id==user.id">{{user.tendoanvien}}</td>
-                    
-                    <!-- <td v-for="chidoan in chidoans" :item="chidoan" v-bind:key="chidoan.id" v-if="ct_hoatdong.user_id==user.id">{{chidoan.tenchidoan}}</td> -->
-                    
+                    <td v-bind:key="user.id" v-if="ct_hoatdong.user_id==user.id">{{getChidoanByID(user.chidoan_id)}}</td>
                     </template>
                     <td>{{ct_hoatdong.vaitro}}</td>
                     <td>{{ct_hoatdong.thanhtich}}</td>
@@ -155,15 +153,12 @@
                     <td v-for="chidoan in filteredchidoans" :key="chidoan.id" v-if="user.chidoan_id === chidoan.id">
                       {{chidoan.tenchidoan}}
                     </td>
-                    
-                    <!-- <td v-for="ct_hoatdong in filteredct_hoatdongs" :key="ct_hoatdong.index" v-if="user.id===ct_hoatdong.user_id">
-                      <button class="btn btn-success disabled">
-                        Đã thêm
-                      </button>
-                    </td> -->
                     <td>
-                      <button class="btn btn-success" @click="addUser(user.id)">
+                      <button v-show="!checkThamGia(user.id)" class="btn btn-success" @click="addUser(user.id)">
                         Thêm
+                      </button>
+                      <button v-show="checkThamGia(user.id)" class="btn btn-success disabled">
+                        Đã thêm
                       </button>
                     </td>
                   </tr>
@@ -220,6 +215,26 @@
         methods: {
           moment: function (date) {
                 return moment(date).format('DD/MM/YYYY HH:mm');
+          },
+          checkThamGia(id){
+            var res = false;
+            var i;
+            for(i = 0; i < this.filteredct_hoatdongs.length; i++){
+              if(this.filteredct_hoatdongs[i].user_id==id){
+                res = true;
+              }
+            }
+            return res;
+          },
+          getChidoanByID(id){
+            var tenchidoan = '';
+            var i;
+            for(i = 0; i < this.chidoans.length; i++){
+              if(this.chidoans[i].id==id){
+                tenchidoan = this.chidoans[i].tenchidoan;
+              }
+            }
+            return tenchidoan;
           },
           loadnamhocs(){
             var i;

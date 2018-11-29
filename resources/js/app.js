@@ -71,6 +71,8 @@ let routes = [
     { path: '/kyluat', component: require('./components/Kyluat.vue') },
     { path: '/user', component: require('./components/User.vue') },
     { path: '/ct_hoatdong', component: require('./components/Ct_hoatdong.vue') },
+    { path: '/profile', component: require('./components/Profile.vue') },
+    { path: '/vanban', component: require('./components/Vanban.vue') },
   ]
 
 const router = new VueRouter({

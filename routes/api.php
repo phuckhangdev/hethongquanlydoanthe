@@ -26,4 +26,8 @@ Route::apiResources([
     'kyluat' => 'API\KyluatController',
     'user' => 'API\UserController',
     'ct_hoatdong' => 'API\Ct_hoatdongController',
+    'vanban' => 'API\VanbanController',
 ]);
+
+Route::get('profile', 'API\UserController@profile');
+Route::put('profile', 'API\UserController@updateProfile');

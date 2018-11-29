@@ -53,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="./img/profile.png" class="img-circle elevation-2" alt="User Image">
+          <img src="./img/profile/{{ Auth::user()->hinhanh }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
@@ -209,24 +209,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endperm
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/vanban" class="nav-link">
               <i class="nav-icon fas fa-file-signature"></i>
               <p>Văn bản Đoàn thể</p>
-            </a>
+            </router-link>
           </li>
           @role('admin')
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Quản lý người dùng</p>
-            </a>
+            </router-link>
           </li>
           @endrole
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>Tài khoản</p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
 

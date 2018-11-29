@@ -30386,3 +30386,8 @@ readers do not read off random characters that represent icons */
   outline: none;
 }
 
+.user-panel img {
+  width: 2.1rem;
+  height: 2.1rem;
+}
+
