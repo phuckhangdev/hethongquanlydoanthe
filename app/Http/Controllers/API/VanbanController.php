@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Vanban;
 
 class VanbanController extends Controller
 {
@@ -18,7 +19,7 @@ class VanbanController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(User::count());
+        return Vanban::latest()->paginate(Vanban::count());
     }
 
     /**
@@ -29,7 +30,18 @@ class VanbanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'tenvanban' => ['required', 'string', 'max:100', 'unique:vanbans'],
+            'duongdan' => ['required'],
+        ]);
+
+        $newVanban = new Vanban();
+        $newVanban->tenvanban = $request['tenvanban'];
+        $newVanban->duongdan = $request['duongdan'];
+        $newVanban->loaivanban = $request['loaivanban'];
+        $newVanban->captochuc = $request['captochuc'];
+        $newVanban->save(); 
+        return $newVanban;
     }
 
     /**
@@ -52,7 +64,12 @@ class VanbanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vanban = Vanban::findOrFail($id);
+        $this->validate($request,[
+            'tenvanban' => ['required', 'string', 'max:100', 'unique:vanbans'],
+            'duongdan' => ['required'],
+        ]);
+        $vanban->update($request->all());
     }
 
     /**
@@ -63,6 +80,8 @@ class VanbanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vanban = Vanban::findOrFail($id);
+
+        $vanban->delete();
     }
 }

@@ -307,6 +307,7 @@
                         title: 'Cập nhật thành công!'
                     })
                     this.$Progress.finish();
+                    location.reload();
                 })
                 .catch(() => {
                     toast({

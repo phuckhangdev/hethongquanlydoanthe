@@ -4,12 +4,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Cấp tổ chức</h3>
+                <h3 class="card-title">Văn bản</h3>
 
                 <div class="card-tools">
                   <button class="btn btn-primary" @click="newModal">
                     <i class="fas fa-plus-circle"></i> Thêm mới
-                  </button>
+                  </button> 
                 </div>
               </div>
               <!-- /.card-header -->
@@ -17,15 +17,20 @@
                 <table class="table table-hover">
                   <tbody><tr>
                     <th>ID</th>
-                    <th>Tên cấp tổ chức</th>
+                    <th>Tên văn bản</th>
+                    <th>Loại văn bản</th>
+                    <th>Cấp tổ chức</th>
                     <th>Ngày tạo</th>
                     <th>Sửa đổi</th>
                   </tr>
-                  <!-- <tr v-for="(vanban, index) in vanbans" :key="index"> -->
+                  
                   <tr v-for="vanban in vanbans" :key="vanban.id">
                     <td>{{vanban.id}}</td>
-                    <!-- <td>{{index+1}}</td> -->
-                    <td>{{vanban.tenvanban}}</td>
+                    <td>
+                      <a href="#" @click="pdfView(vanban.duongdan)">
+                      {{vanban.tenvanban}}
+                      </a>
+                    </td>
                     <td>{{vanban.loaivanban}}</td>
                     <td>{{vanban.captochuc}}</td>
                     <td>{{vanban.created_at | showDate}}</td>
@@ -60,14 +65,31 @@
                 </button>
               </div>
               <!-- Form -->
-              <form @submit.prevent="editmode ? updatevanban() : createvanban()">
+              <form enctype="multipart/form-data" @submit.prevent="editmode ? updatevanban() : createvanban()">
               <div class="modal-body">
                 <div class="form-group">
                   <input v-model="form.tenvanban" type="text" name="tenvanban"
-                    placeholder="Tên cấp tổ chức"
+                    placeholder="Tên văn bản"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('tenvanban') }">
                   <has-error :form="form" field="tenvanban"></has-error>
                 </div>
+                <div class="form-group">
+                    <p>Đường dẫn</p>
+                  <input type="file" @change="updateDuongdan" name="duongdan" class="form-input">
+                </div>
+                <div class="form-group">
+                  <input v-model="form.loaivanban" type="text" name="loaivanban"
+                    placeholder="Loại văn bản"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('loaivanban') }">
+                  <has-error :form="form" field="loaivanban"></has-error>
+                </div>
+                <div class="form-group">
+                  <input v-model="form.captochuc" type="text" name="captochuc"
+                    placeholder="Tên cấp tổ chức"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('captochuc') }">
+                  <has-error :form="form" field="captochuc"></has-error>
+                </div>
+                
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
@@ -98,6 +120,27 @@
           }
         },
         methods: {
+            updateDuongdan(e){
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                let limit = 1024 * 1024 * 2;
+                if(file['size'] > limit){
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Ảnh của bạn quá lớn',
+                    })
+                    return false;
+                }
+                reader.onloadend = (file) => {
+                    this.form.duongdan = reader.result;
+                }
+                reader.readAsDataURL(file);
+            },
+            pdfView(url){
+              let pdfWindow = window.open("")
+                pdfWindow.document.write("<iframe width='100%' height='100%' src='"+url+"'></iframe>")
+            },
           editModal(vanban){
             this.editmode = true;
             this.form.reset();
