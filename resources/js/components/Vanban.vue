@@ -20,8 +20,8 @@
                     <th>Tên văn bản</th>
                     <th>Loại văn bản</th>
                     <th>Cấp tổ chức</th>
-                    <th>Ngày tạo</th>
-                    <th>Sửa đổi</th>
+                    <th v-show="role=='admin'">Ngày tạo</th>
+                    <th v-show="role=='admin'">Sửa đổi</th>
                   </tr>
                   
                   <tr v-for="vanban in vanbans" :key="vanban.id">
@@ -33,8 +33,8 @@
                     </td>
                     <td>{{vanban.loaivanban}}</td>
                     <td>{{vanban.captochuc}}</td>
-                    <td>{{vanban.created_at | showDate}}</td>
-                    <td>
+                    <td v-show="role=='admin'">{{vanban.created_at | showDate}}</td>
+                    <td v-show="role=='admin'">
                       <a href="#" @click="editModal(vanban)">
                         <i class="fa fa-edit green"></i>
                       </a>
@@ -109,6 +109,7 @@
         data() {
           return {
             editmode: false,
+            role:'',
             vanbans: {},
             form: new Form({
               id: '',
@@ -194,6 +195,18 @@
               }
             })
           },
+          loadFirstTime(){
+            axios.get("api/role")
+            .then(({ data }) => {
+                var res = data;
+                console.log(res);
+                if(res=='1')
+                this.role = 'admin';
+                if(res=='2')
+                this.role = 'manager';
+            })
+            this.loadvanbans();
+          },
           loadvanbans(){
             this.$Progress.start();
             axios.get("api/vanban")
@@ -233,7 +246,7 @@
           }
         },
         created() {
-            this.loadvanbans();
+            this.loadFirstTime();
             Fire.$on('Reloadvanbans', () => {
               this.loadvanbans();
             })

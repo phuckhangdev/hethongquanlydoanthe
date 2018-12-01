@@ -118,8 +118,16 @@ class UserController extends Controller
         $request['ngayvaodoan'] = Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']);
         $user->update($request->all());
     }
-
     
+    public function role()
+    {
+        $res = 0;
+        if(auth('api')->user()->hasRole('admin'))
+        $res = 1;
+        if(auth('api')->user()->hasRole('manager'))
+        $res = 2;
+        return $res;
+    }
     public function profile()
     {
         return auth('api')->user();

@@ -32,10 +32,6 @@ $.extend(true, $.fn.datetimepicker.defaults, {
   }
 });
 
-//pdf
-import pdf from 'vue-pdf'
-Vue.component('pdf', pdf)
-
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 // Using sweetalert
