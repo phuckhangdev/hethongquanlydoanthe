@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\User;
+use App\Role;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -26,7 +28,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(User::count());
+        return User::latest()->with('roles')->paginate(User::count());
     }
 
     /**
@@ -43,7 +45,7 @@ class UserController extends Controller
             'tendoanvien' => ['required', 'string', 'max:191'],
             'gioitinh' => ['required'],
             // 'dantoc' => ['required'],
-            // 'chucvu' => ['required'],
+            'chucvu' => ['required'],
             'chidoan_id' => ['required'],
         ]);
 
@@ -68,14 +70,21 @@ class UserController extends Controller
             $request->merge(['hinhanh' => $name]);
         }
 
+        if($request['dangvien'] == null)
+        $request['dangvien'] = 0;
+
+        $student_role = Role::where('slug', 'student')->first();
+
         $newUser = new User();
         $newUser->username = $request['username'];
         $newUser->password = Hash::make($request['password']);
         $newUser->tendoanvien = $request['tendoanvien'];
+        if($request['ngaysinh'] != null)
         $newUser->ngaysinh = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
         $newUser->gioitinh = $request['gioitinh'];
         $newUser->quequan = $request['quequan'];
         $newUser->dantoc = $request['dantoc'];
+        if($request['ngayvaodoan'] != null)
         $newUser->ngayvaodoan = Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']);
         $newUser->noivaodoan = $request['noivaodoan'];
         $newUser->chucvu = $request['chucvu'];
@@ -84,6 +93,8 @@ class UserController extends Controller
         $newUser->hinhanh = $request['hinhanh'];    
         $newUser->chidoan_id = $request['chidoan_id'];    
         $newUser->save(); 
+        $newUser->roles()->attach($student_role);
+        
         return $newUser;
     }
 
@@ -114,12 +125,35 @@ class UserController extends Controller
         if(!empty($request->password)){
             $request->merge(['password' => Hash::make($request['password'])]);
         }
-        $request['ngaysinh'] = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
-        $request['ngayvaodoan'] = Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']);
+
+        if($request['ngaysinh'] != 'Invalid date'){
+            $request['ngaysinh'] = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
+        }else{
+            $request['ngaysinh'] = null; 
+        }
+        
+        if($request['ngayvaodoan'] != 'Invalid date'){
+            $request['ngayvaodoan'] = Carbon::createFromFormat('d/m/Y',$request['ngayvaodoan']);
+        }else{
+            $request['ngayvaodoan'] = null; 
+        }
+
         $user->update($request->all());
     }
+
+    public function updateRole(Request $request)
+    {
+        $user = User::findOrFail($request['id']); 
+        
+        DB::table('users_roles')->where('user_id', '=', $user->id)->delete();
+        $role = Role::where('slug', $request['selected_role'])->first();
+        $user->roles()->attach($role);
+
+        // return ['message' => 'updated'];
+        return $user;
+    }
     
-    public function role()
+    public function checkrole()
     {
         $res = 0;
         if(auth('api')->user()->hasRole('admin'))
@@ -178,10 +212,21 @@ class UserController extends Controller
         if(!empty($request->password)){
             $request->merge(['password' => Hash::make($request['password'])]);
         }
-        // $request['ngaysinh'] = Carbon::parse($request['ngaysinh']);
-        $request['ngaysinh'] = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
-        $request['ngayvaodoan'] = Carbon::createFromFormat('d/m/Y', $request['ngayvaodoan']);
+        
+        if($request['ngaysinh'] != 'Invalid date'){
+            $request['ngaysinh'] = Carbon::createFromFormat('d/m/Y',$request['ngaysinh']);
+        }else{
+            $request['ngaysinh'] = null; 
+        }
+
+        if($request['ngayvaodoan'] != 'Invalid date'){
+            $request['ngayvaodoan'] = Carbon::createFromFormat('d/m/Y',$request['ngayvaodoan']);
+        }else{
+            $request['ngayvaodoan'] = null; 
+        }
+
         $user->update($request->all());
+        // return $user;
     }
 
     /**

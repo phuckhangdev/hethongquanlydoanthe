@@ -20,8 +20,8 @@
                     <th>Tên văn bản</th>
                     <th>Loại văn bản</th>
                     <th>Cấp tổ chức</th>
-                    <th v-show="role=='admin'">Ngày tạo</th>
-                    <th v-show="role=='admin'">Sửa đổi</th>
+                    <th v-show="checkrole=='admin'">Ngày tạo</th>
+                    <th v-show="checkrole=='admin'">Sửa đổi</th>
                   </tr>
                   
                   <tr v-for="vanban in vanbans" :key="vanban.id">
@@ -33,8 +33,8 @@
                     </td>
                     <td>{{vanban.loaivanban}}</td>
                     <td>{{vanban.captochuc}}</td>
-                    <td v-show="role=='admin'">{{vanban.created_at | showDate}}</td>
-                    <td v-show="role=='admin'">
+                    <td v-show="checkrole=='admin'">{{vanban.created_at | showDate}}</td>
+                    <td v-show="checkrole=='admin'">
                       <a href="#" @click="editModal(vanban)">
                         <i class="fa fa-edit green"></i>
                       </a>
@@ -54,8 +54,8 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal fade" id="addNewModal" tabindex="-1" checkrole="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" checkrole="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title blue" v-show="!editmode" id="addNewModalLabel">Thêm mới</h5>
@@ -109,7 +109,7 @@
         data() {
           return {
             editmode: false,
-            role:'',
+            checkrole:'',
             vanbans: {},
             form: new Form({
               id: '',
@@ -196,14 +196,14 @@
             })
           },
           loadFirstTime(){
-            axios.get("api/role")
+            axios.get("api/checkrole")
             .then(({ data }) => {
                 var res = data;
                 console.log(res);
                 if(res=='1')
-                this.role = 'admin';
+                this.checkrole = 'admin';
                 if(res=='2')
-                this.role = 'manager';
+                this.checkrole = 'manager';
             })
             this.loadvanbans();
           },

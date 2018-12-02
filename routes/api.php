@@ -27,8 +27,11 @@ Route::apiResources([
     'user' => 'API\UserController',
     'ct_hoatdong' => 'API\Ct_hoatdongController',
     'vanban' => 'API\VanbanController',
+    'role' => 'API\RoleController',
 ]);
 
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
-Route::get('role', 'API\UserController@role');
+Route::get('checkrole', 'API\UserController@checkrole');
+
+Route::put('updaterole', 'API\UserController@updateRole');

@@ -216,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           @role('admin')
           <li class="nav-item">
-            <router-link to="#" class="nav-link">
+            <router-link to="/usermanagement" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Quản lý người dùng</p>
             </router-link>

@@ -73,6 +73,7 @@ let routes = [
     { path: '/ct_hoatdong', component: require('./components/Ct_hoatdong.vue') },
     { path: '/profile', component: require('./components/Profile.vue') },
     { path: '/vanban', component: require('./components/Vanban.vue') },
+    { path: '/usermanagement', component: require('./components/UserManagement.vue') },
   ]
 
 const router = new VueRouter({
@@ -92,6 +93,7 @@ Vue.filter('showDate', function(created) {
   // return moment(created).format('DD/MM/YYYY, h:mm:ss a')
   return moment(created).format('DD/MM/YYYY, HH:mm')
 })
+
 
 /**
  * The following block of code may be used to automatically register your
