@@ -79947,6 +79947,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.form.fill(ct_hoatdong);
     },
     addUser: function addUser(id) {
+      if (this.filterByhoatdong == '') {
+        toast({
+          type: 'warning',
+          title: 'Vui lòng chọn hoạt động!'
+        });
+        return;
+      }
       this.form.user_id = id;
       this.form.hoatdong_id = this.filterByhoatdong;
       this.form.vaitro = 'Tham gia';

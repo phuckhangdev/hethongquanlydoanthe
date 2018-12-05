@@ -43,6 +43,12 @@ return [
 
     'disks' => [
 
+        'dropbox' => [
+            'driver' => 'dropbox',
+            'accessToken' => env('DROPBOX_ACCESS_TOKEN'), // access token bên trên
+            'appSecret' => env('DROPBOX_APP_SECRET'),  // secrest key
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

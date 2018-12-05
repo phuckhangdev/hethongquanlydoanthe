@@ -14,7 +14,7 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -54,6 +54,19 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            // 'dump' => [
+            //     'use_single_transaction',
+            //     'dump_command_path' =>'C:\Program Files\MySQL\MySQL Server 5.7\bin',//That's the location of mysqldump in my PC
+            //     'timeout' => 5,
+            //     'dump_command_timeout' => 60,
+            // ],
+            'dump' => [
+                'dump_binary_path' => 'C:/Program Files/MySQL/MySQL Server 5.7/bin', // only the path, so without `mysqldump` or `pg_dump`
+                'use_single_transaction',
+                'timeout' => 60 * 5, // 5 minute timeout
+                // 'exclude_tables' => ['table1', 'table2'],
+                // 'add_extra_option' => '--optionname=optionvalue', 
+            ],  
         ],
 
         'pgsql' => [
