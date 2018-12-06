@@ -79884,7 +79884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       filterByDoankhoato: '',
       filterByChidoan: '',
       form: new Form({
-        id: '',
+        // id: '',
         user_id: '',
         hoatdong_id: '',
         vaitro: '',
@@ -79966,7 +79966,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.$Progress.start();
-      this.form.put('api/ct_hoatdong/' + this.form.id).then(function () {
+      // this.form.put('api/ct_hoatdong/' + this.form.id)
+      this.form.put('api/updatect_hoatdong').then(function () {
         Fire.$emit('Reloadct_hoatdongs');
         $('#addNewModal').modal('hide');
         toast({
@@ -79982,7 +79983,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.$Progress.fail();
       });
     },
-    deletect_hoatdong: function deletect_hoatdong(id) {
+    deletect_hoatdong: function deletect_hoatdong(ct_hoatdong) {
       var _this2 = this;
 
       swal({
@@ -79995,7 +79996,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         confirmButtonText: 'Vâng, tôi chắc!'
       }).then(function (result) {
         if (result.value) {
-          _this2.form.delete('api/ct_hoatdong/' + id).then(function () {
+          _this2.form.fill(ct_hoatdong);
+          // this.form.delete('api/ct_hoatdong/' + id)
+          _this2.form.put('api/deletect_hoatdong').then(function () {
             swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
             Fire.$emit('Reloadct_hoatdongs');
           }).catch(function () {
@@ -80377,7 +80380,7 @@ var render = function() {
                               attrs: { href: "#" },
                               on: {
                                 click: function($event) {
-                                  _vm.deletect_hoatdong(ct_hoatdong.id)
+                                  _vm.deletect_hoatdong(ct_hoatdong)
                                 }
                               }
                             },

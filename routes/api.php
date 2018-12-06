@@ -35,3 +35,6 @@ Route::put('profile', 'API\UserController@updateProfile');
 Route::get('checkrole', 'API\UserController@checkrole');
 
 Route::put('updaterole', 'API\UserController@updateRole');
+
+Route::put('updatect_hoatdong', 'API\Ct_hoatdongController@updateCt_hoatdong');
+Route::put('deletect_hoatdong', 'API\Ct_hoatdongController@deleteCt_hoatdong');

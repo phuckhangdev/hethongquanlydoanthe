@@ -63,13 +63,39 @@ class Ct_hoatdongController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ct_hoatdong = Ct_hoatdong::findOrFail($id);
+        // $ct_hoatdong = Ct_hoatdong::findOrFail($id);
 
-        $this->validate($request,[
-            'vaitro' => ['required'],
-        ]);
+        // $this->validate($request,[
+        //     'vaitro' => ['required'],
+        // ]);
         
-        $ct_hoatdong->update($request->all());
+        // $ct_hoatdong->update($request->all());
+    }
+
+    public function updateCt_hoatdong(Request $request)
+    {
+        // $ct_hoatdong = Ct_hoatdong::where('user_id', $request['user_id'])->where('hoatdong_id', $request['hoatdong_id'])->first();
+
+        // $this->validate($request,[
+        //     'vaitro' => ['required'],
+        // ]);
+        // $ct_hoatdong->vaitro = $request->vaitro;
+        // $ct_hoatdong->thanhtich = $request->thanhtich; 
+        // // $ct_hoatdong->update($request->all());
+        // $ct_hoatdong->save();
+
+        \DB::table('ct_hoatdongs')->where(['user_id' => $request['user_id'], 'hoatdong_id' => $request['hoatdong_id']])->update([
+            'vaitro' => $request['vaitro'],
+            'thanhtich' => $request['thanhtich'],
+        ]);
+    }
+
+    public function deleteCt_hoatdong(Request $request)
+    {
+        // $ct_hoatdong = Ct_hoatdong::where('user_id', $request['user_id'])->where('hoatdong_id', $request['hoatdong_id'])->first();
+        // // return ['message' => $ct_hoatdong];
+        // $ct_hoatdong->delete();
+        \DB::table('ct_hoatdongs')->where(['user_id' => $request['user_id'], 'hoatdong_id' => $request['hoatdong_id']])->delete();
     }
 
     /**

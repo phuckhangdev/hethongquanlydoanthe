@@ -59,7 +59,7 @@
                         <i class="fa fa-edit green"></i>
                       </a>
                       |
-                      <a href="#" @click="deletect_hoatdong(ct_hoatdong.id)">
+                      <a href="#" @click="deletect_hoatdong(ct_hoatdong)">
                         <i class="fa fa-trash red"></i>
                       </a>
                     </td>
@@ -197,7 +197,7 @@
             filterByDoankhoato: '',
             filterByChidoan: '',
             form: new Form({
-              id: '',
+              // id: '',
               user_id: '',
               hoatdong_id: '',
               vaitro: '',
@@ -267,7 +267,8 @@
           
           updatect_hoatdong(){
             this.$Progress.start();
-            this.form.put('api/ct_hoatdong/' + this.form.id)
+            // this.form.put('api/ct_hoatdong/' + this.form.id)
+            this.form.put('api/updatect_hoatdong')
             .then(() => {
               Fire.$emit('Reloadct_hoatdongs');
               $('#addNewModal').modal('hide');
@@ -285,7 +286,7 @@
               this.$Progress.fail();
             });
           },
-          deletect_hoatdong(id){
+          deletect_hoatdong(ct_hoatdong){
             swal({
               title: 'Bạn có muốn xóa?',
               text: "Bạn sẽ không thể hoàn nguyên điều này!",
@@ -296,7 +297,9 @@
               confirmButtonText: 'Vâng, tôi chắc!'
             }).then((result) => {
               if (result.value) {
-                this.form.delete('api/ct_hoatdong/' + id)
+                this.form.fill(ct_hoatdong);
+                // this.form.delete('api/ct_hoatdong/' + id)
+                this.form.put('api/deletect_hoatdong')
                 .then(() => {
                     swal('Xóa thành công!', 'Bạn đã xóa thành công.', 'success');
                     Fire.$emit('Reloadct_hoatdongs');
