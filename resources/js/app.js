@@ -74,6 +74,7 @@ let routes = [
     { path: '/profile', component: require('./components/Profile.vue') },
     { path: '/vanban', component: require('./components/Vanban.vue') },
     { path: '/usermanagement', component: require('./components/UserManagement.vue') },
+    { path: '/xeploaicd', component: require('./components/Xeploaicd.vue') },
   ]
 
 const router = new VueRouter({

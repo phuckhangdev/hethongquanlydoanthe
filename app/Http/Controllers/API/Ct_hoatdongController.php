@@ -35,6 +35,10 @@ class Ct_hoatdongController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'vaitro' => ['required'],
+        ]);
+        
         return Ct_hoatdong::create([
             'user_id' => $request['user_id'],
             'hoatdong_id' => $request['hoatdong_id'],

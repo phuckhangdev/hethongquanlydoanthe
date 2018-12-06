@@ -28,6 +28,7 @@ Route::apiResources([
     'ct_hoatdong' => 'API\Ct_hoatdongController',
     'vanban' => 'API\VanbanController',
     'role' => 'API\RoleController',
+    'xeploaicd' => 'API\XeploaicdController',
 ]);
 
 Route::get('profile', 'API\UserController@profile');
@@ -38,3 +39,6 @@ Route::put('updaterole', 'API\UserController@updateRole');
 
 Route::put('updatect_hoatdong', 'API\Ct_hoatdongController@updateCt_hoatdong');
 Route::put('deletect_hoatdong', 'API\Ct_hoatdongController@deleteCt_hoatdong');
+
+Route::put('updatexeploaicd', 'API\XeploaicdController@updateXeploaicd');
+Route::put('deletexeploaicd', 'API\XeploaicdController@deleteXeploaicd');

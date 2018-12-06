@@ -14,14 +14,17 @@ class CreateXeploaicdsTable extends Migration
     public function up()
     {
         Schema::create('xeploaicds', function (Blueprint $table) {
-            $table->increments('id');
+            // $table->increments('id');
             $table->string('namhoc',11);
-            $table->string('xeploai',45);
-
             $table->integer('chidoan_id')->unsigned();
+            
+            $table->string('xeploai',45);
 
             //FOREIGN KEY CONSTRAINTS
             $table->foreign('chidoan_id')->references('id')->on('chidoans');
+
+            //SETTING THE PRIMARY KEYS
+            $table->primary(['namhoc','chidoan_id']);
         });
     }
 

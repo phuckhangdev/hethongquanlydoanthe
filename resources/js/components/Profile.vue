@@ -210,7 +210,7 @@
                                 <div class="form-group">
                                     <label for="hinhanh" class="col-sm-2 control-label">Hình ảnh</label>
                                     <div class="col-sm-12">
-                                        <input type="file" @change="updateProfile" name="hinhanh" class="form-input">
+                                        <input type="file" @change="updateProfile" name="hinhanh" accept="image/*" class="form-input">
                                     </div>
 
                                 </div>

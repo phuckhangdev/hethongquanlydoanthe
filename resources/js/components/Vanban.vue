@@ -74,8 +74,8 @@
                   <has-error :form="form" field="tenvanban"></has-error>
                 </div>
                 <div class="form-group">
-                    <p>Đường dẫn</p>
-                  <input type="file" @change="updateDuongdan" name="duongdan" class="form-input">
+                    <p>Đường dẫn (file pdf)</p>
+                  <input type="file" @change="updateDuongdan" name="duongdan" accept="application/pdf" class="form-input">
                 </div>
                 <div class="form-group">
                   <input v-model="form.loaivanban" type="text" name="loaivanban"

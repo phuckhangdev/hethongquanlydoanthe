@@ -162,10 +162,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endrole
             @perm('xep-loai-chi-doan')
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/xeploaicd" class="nav-link">
                   <i class="fas fa-trophy nav-icon"></i>
                   <p>Xếp loại Chi đoàn</p>
-                </a>
+                </router-link>
               </li>
             @endperm
           @role('admin')

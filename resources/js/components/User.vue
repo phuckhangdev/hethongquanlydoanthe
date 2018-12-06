@@ -190,7 +190,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                    <input type="file" @change="updateProfile" name="hinhanh" class="form-input">
+                    <input type="file" @change="updateProfile" name="hinhanh" accept="image/*" class="form-input">
                 </div>
                 <div class="form-group">
                   <input v-model="form.dangvien" type="checkbox" name="dangvien" false-value="0" true-value="1"
