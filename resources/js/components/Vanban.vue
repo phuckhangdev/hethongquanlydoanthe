@@ -199,7 +199,6 @@
             axios.get("api/checkrole")
             .then(({ data }) => {
                 var res = data;
-                console.log(res);
                 if(res=='1')
                 this.checkrole = 'admin';
                 if(res=='2')

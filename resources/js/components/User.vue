@@ -26,22 +26,25 @@
               <div class="card-header">
                 <h3 class="card-title">Đoàn viên</h3>
                 <div class="row">
-                  <div class="col-sm-6 col-md-4"> 
-                    <select class="form-control" v-model="filterByDoankhoato" >
+                  <div v-show="checkrole=='admin'" class="col-sm-6 col-md-4"> 
+                    <select  class="form-control" v-model="filterByDoankhoato" >
                       <option value="" selected disabled hidden>Chọn Đoàn khoa & Tổ</option>
                       <option v-for="doankhoato in doankhoatos" :key="doankhoato.id" :value="doankhoato.id">{{doankhoato.tendoankhoato}}</option>
                     </select>
                   </div>
-                  <div class="col-sm-6 col-md-3"> 
+                  <div v-show="checkrole=='admin'" class="col-sm-6 col-md-3"> 
                     <select class="form-control" v-model="filterByChidoan" >
                       <option value="" selected disabled hidden>Chi đoàn</option>
                       <option v-for="chidoan in filteredchidoans" :key="chidoan.id" :value="chidoan.id">{{chidoan.tenchidoan}}</option>
                     </select>
+                    
                   </div>
-                  
+                  <div v-show="!(checkrole=='admin')" class="col-sm-6 col-md-4">
+                    <input disabled class="form-control" :value="'Chi đoàn ' + getChidoanByID(filterByChidoan)">
+                  </div>
                 </div>
                 <div class="card-tools">
-                  <button class="btn btn-primary" @click="newModal">
+                  <button v-show="checkrole=='admin' || checkrole=='manager'" class="btn btn-primary" @click="newModal">
                     <i class="fas fa-plus-circle"></i> Thêm mới
                   </button>
                 </div>
@@ -57,8 +60,8 @@
                     <th>Giới tính</th>
                     <th>Chức vụ</th>
                     <th>Đảng viên</th>
-                    <th>Ngày tạo</th>
-                    <th>Sửa đổi</th>
+                    <th v-show="checkrole=='admin' || checkrole=='manager'">Ngày tạo</th>
+                    <th v-show="checkrole=='admin' || checkrole=='manager'">Sửa đổi</th>
                   </tr>
                   
                   <tr v-for="user in filteredusers" :key="user.id">
@@ -71,15 +74,17 @@
                     <td>{{user.chucvu}}</td>
                     <td v-if="user.dangvien === 0"></td>
                     <td v-if="user.dangvien === 1">Đảng viên</td>
-                    <td>{{user.created_at | showDate}}</td>
+                    <td v-show="checkrole=='admin' || checkrole=='manager'">{{user.created_at | showDate}}</td>
                     <td>
-                      <a href="#" @click="editModal(user)">
-                        <i class="fa fa-edit green"></i>
-                      </a>
-                      |
-                      <a href="#" @click="deleteuser(user.id)">
-                        <i class="fa fa-trash red"></i>
-                      </a>
+                      <span v-show="(checkrole=='admin' || checkrole=='manager') && !(user.id===profile.id)">
+                        <a href="#" @click="editModal(user)">
+                          <i class="fa fa-edit green"></i>
+                        </a>
+                        |
+                        <a href="#" @click="deleteuser(user.id)">
+                          <i class="fa fa-trash red"></i>
+                        </a>
+                      </span>
                     </td>
                   </tr>
                 
@@ -228,9 +233,11 @@
             users: [],
             doankhoatos: [],
             chidoans: [],
+            profile: {},
             filterByDoankhoato: '',
             filterByChidoan: '',
             resetPassword: false,
+            checkrole: '',
             form: new Form({
               id: '',
               username: '',
@@ -264,6 +271,16 @@
           getProfilehinhanh(){
               let hinhanh = (this.form.hinhanh.length > 200) ? this.form.hinhanh : "img/profile/"+ this.form.hinhanh ;
               return hinhanh;
+          },
+          getChidoanByID(id){
+            var tenchidoan = '';
+            var i;
+            for(i = 0; i < this.chidoans.length; i++){
+              if(this.chidoans[i].id==id){
+                tenchidoan = this.chidoans[i].tenchidoan;
+              }
+            }
+            return tenchidoan;
           },
           editModal(user){
             this.editmode = true;
@@ -349,6 +366,14 @@
             })
           },
           loadFirtTime(){
+            axios.get("api/checkrole")
+            .then(({ data }) => {
+                var res = data;
+                if(res=='1')
+                this.checkrole = 'admin';
+                if(res=='2')
+                this.checkrole = 'manager';
+            })
             axios.get('api/doankhoato')
             .then(({ data }) => {
                 (this.doankhoatos = data.data)
@@ -356,6 +381,11 @@
             axios.get('api/chidoan')
             .then(({ data }) => {
                 (this.chidoans = data.data)
+            })
+            axios.get("api/profile")
+            .then(({ data }) => {
+                (this.profile = data)
+                this.filterByChidoan = this.profile.chidoan_id;
             })
             this.loadusers();
           },
@@ -404,6 +434,8 @@
         computed:{
             filteredchidoans: function(){
               return this.chidoans.filter((chidoans)=>{
+                if(this.filterByDoankhoato=== '')
+                return chidoans;
                 return chidoans.doankhoato_id===this.filterByDoankhoato;
               })
             },

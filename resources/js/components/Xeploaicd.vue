@@ -4,7 +4,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Hoạt động</h3>
+                <h3 class="card-title">Xếp loại chi đoàn</h3>
                 <div class="row">
                   <div class="col-sm-6 col-md-3"> 
                     <select class="form-control" v-model="filterBynamhoc" >

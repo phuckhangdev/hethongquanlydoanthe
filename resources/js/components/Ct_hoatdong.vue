@@ -4,7 +4,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Danh sách hoạt động</h3>
+                <h3 class="card-title">Danh sách tham gia</h3>
                 <div class="row">
                   <div class="col-sm-6 col-md-3"> 
                     <select class="form-control" v-model="filterBynamhoc" >
@@ -27,7 +27,7 @@
                   </div>
                 </div>
                 <div class="card-tools">
-                  <button class="btn btn-primary" @click="addModal">
+                  <button v-show="checkrole=='admin' || checkrole=='manager'" class="btn btn-primary" @click="addModal">
                     <i class="fas fa-plus-circle"></i> Thêm dữ liệu
                   </button>
                 </div>
@@ -45,7 +45,7 @@
                     <th>Sửa đổi</th>
                   </tr>
                   
-                  <!-- <tr v-for="ct_hoatdong in filteredct_hoatdongs" :key="ct_hoatdong.index"> -->
+                  <!-- <tr v-for="ct_hoatdong in filteredct_hoatdongs" :key="ct_hoatdong.id"> -->
                   <tr v-for="(ct_hoatdong, index) in filteredct_hoatdongs" :key="index">
                     <template v-for="user in users" >
                     <td v-bind:key="user.id" v-if="ct_hoatdong.user_id==user.id">{{user.username}}</td>
@@ -124,17 +124,20 @@
               <div class="modal-body">
                 <div class="card-body table-responsive p-0">
                   <div class="row">
-                    <div class="col-sm-6 col-md-7"> 
-                  <select class="form-control" v-model="filterByDoankhoato" >
-                    <option value="" selected disabled hidden>Đoàn khoa & Tổ</option>
-                    <option v-for="doankhoato in doankhoatos" :key="doankhoato.id" :value="doankhoato.id">{{doankhoato.tendoankhoato}}</option>
-                  </select>
+                    <div v-show="checkrole=='admin'" class="col-sm-6 col-md-7"> 
+                      <select class="form-control" v-model="filterByDoankhoato" >
+                        <option value="" selected disabled hidden>Đoàn khoa & Tổ</option>
+                        <option v-for="doankhoato in doankhoatos" :key="doankhoato.id" :value="doankhoato.id">{{doankhoato.tendoankhoato}}</option>
+                      </select>
                     </div>
-                    <div class="col-sm-6 col-md-5"> 
-                  <select class="form-control" v-model="filterByChidoan" >
-                    <option value="" selected disabled hidden>Chi đoàn</option>
-                    <option v-for="chidoan in filteredchidoans" :key="chidoan.id" :value="chidoan.id">{{chidoan.tenchidoan}}</option>
-                  </select>
+                    <div v-show="checkrole=='admin'" class="col-sm-6 col-md-5"> 
+                      <select class="form-control" v-model="filterByChidoan" >
+                        <option value="" selected disabled hidden>Chi đoàn</option>
+                        <option v-for="chidoan in filteredchidoans" :key="chidoan.id" :value="chidoan.id">{{chidoan.tenchidoan}}</option>
+                      </select>
+                    </div>
+                    <div v-show="!(checkrole=='admin')" class="col-sm-6 col-md-4">
+                      <input disabled class="form-control" :value="'Chi đoàn ' + getChidoanByID(filterByChidoan)">
                     </div>
                   </div>
                 <table class="table table-hover">
@@ -142,7 +145,7 @@
                     <!-- <th>ID</th> -->
                     <th>Mã Đoàn viên</th>
                     <th>Tên Đoàn viên</th>
-                    <th>Chi đoàn</th>
+                    <th v-show="checkrole=='admin'">Chi đoàn</th>
                     <th>Thêm</th>
                   </tr>
                   
@@ -150,7 +153,7 @@
                     <!-- <td>{{user.id}}</td> -->
                     <td>{{user.username}}</td>
                     <td>{{user.tendoanvien}}</td>
-                    <td v-for="chidoan in filteredchidoans" :key="chidoan.id" v-if="user.chidoan_id === chidoan.id">
+                    <td v-show="checkrole=='admin'" v-for="chidoan in filteredchidoans" :key="chidoan.id" v-if="user.chidoan_id === chidoan.id">
                       {{chidoan.tenchidoan}}
                     </td>
                     <td>
@@ -196,6 +199,7 @@
             filterByhoatdong: '',
             filterByDoankhoato: '',
             filterByChidoan: '',
+            checkrole: '',
             form: new Form({
               // id: '',
               user_id: '',
@@ -311,6 +315,14 @@
             })
           },
           loadFirstTime(){
+            axios.get("api/checkrole")
+            .then(({ data }) => {
+                var res = data;
+                if(res=='1')
+                this.checkrole = 'admin';
+                if(res=='2')
+                this.checkrole = 'manager';
+            })
             axios.get('api/captochuc')
             .then(({ data }) => {
                 (this.captochucs = data.data)
@@ -330,6 +342,11 @@
             axios.get('api/hoatdong')
             .then(({ data }) => {
                 (this.hoatdongs = data.data)
+            })
+            axios.get("api/profile")
+            .then(({ data }) => {
+                (this.profile = data)
+                this.filterByChidoan = this.profile.chidoan_id;
             })
             var currYear = (new Date()).getFullYear();
             this.filterBynamhoc = currYear + ' - ' + (currYear + 1);
